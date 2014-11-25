@@ -44,7 +44,7 @@ elsif has_only_college == 2
 end
 
 #問題設定
-#parts = 大問 question = 小問
+##parts = 大問 question = 小問
 print "大問数を入力"
 numbers_of_parts = gets.chomp.to_i
 numbers_of_questions = Array.new(numbers_of_parts + 1)
@@ -55,19 +55,23 @@ end
 
 #フォルダ名セット
 univ_folder_path = File.expand_path("../TEX-Genkou/14-Nyushi/14-#{ritsu}/14-#{univ_name}", __FILE__)
-college_folder_path = "#{univ_folder_path}/14-#{univ_short_name}-#{college_name}"
-FileUtils::mkdir_p(college_folder_path)
-
+univ_college_folder_name = "14-#{univ_short_name}-#{college_name}"
+college_folder_path = "#{univ_folder_path}/#{univ_college_folder_name}"
+##フォルダ名の語幹部と活用語尾部を別にセッティング
+suffixes_of_folders = Array.new()
 for i in 1..numbers_of_parts do
 	if numbers_of_questions[i] == 0
-		parts_folder_path = "#{college_folder_path}/14-#{univ_short_name}-#{college_name}-#{i.to_s}"
-		FileUtils::mkdir_p(parts_folder_path)
+		suffixes_of_folders << i.to_s
 	else
 		for j in 1..numbers_of_questions[i] do
-			questions_folder_path = "#{college_folder_path}/14-#{univ_short_name}-#{college_name}-#{i.to_s}-#{j.to_s}"
-			FileUtils::mkdir_p(questions_folder_path)
+			suffixes_of_folders << "#{i.to_s}-#{j.to_s}"
 		end
 	end
 end
-FileUtils::mkdir_p("#{college_folder_path}/14-#{univ_short_name}-#{college_name}-end")
-FileUtils::mkdir_p("#{college_folder_path}/14-#{univ_short_name}-#{college_name}-matome")
+suffixes_of_folders << "end" << "matome"
+
+#フォルダ実作成
+FileUtils::mkdir_p(college_folder_path)
+suffixes_of_folders.each{|suffix|
+    FileUtils::mkdir_p("#{college_folder_path}/#{univ_college_folder_name}-#{suffix}")
+}
