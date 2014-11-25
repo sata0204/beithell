@@ -7,8 +7,8 @@ require 'fileutils'
 
 #大学基本設定
 print "国立大なら1を、私立大なら2を入力"
-isKokuritsu = gets.chomp.to_i
-case isKokuritsu
+is_kokuritsu = gets.chomp.to_i
+case is_kokuritsu
 when 1
 	ritsu = "kokuritsu"
 when 2
@@ -16,58 +16,59 @@ when 2
 end
 
 print "大学名をローマ字12字以内で入力"
-univName = gets.chomp.capitalize!
+univ_name = gets.chomp.capitalize!
 print "大学略称をローマ字で入力"
-univShortName = gets.chomp.upcase!
+univ_short_name = gets.chomp.upcase!
 
 #学部設定
 print "単学部なら1を、そうでないなら2を入力"
-hasOnlyCollege = gets.chomp.to_i
-if hasOnlyCollege == 1
+has_only_college = gets.chomp.to_i
+if has_only_college == 1
 	print "前期なら1、中期なら2、後期なら3、医学部のみなら4を入力"
-	collegeOption = gets.chomp.to_i
-	case collegeOption
+	college_option = gets.chomp.to_i
+	case college_option
 	when 1
-		collegeName = "zen"
+		college_name = "zen"
 	when 2 
-		collegeName = "chu"
+		college_name = "chu"
 	when 3
-		collegeName = "kou"
+		college_name = "kou"
 	when 4
-		collegeName = "i"
+		college_name = "i"
 	end
-elsif hasOnlyCollege == 2
+elsif has_only_college == 2
 	print "学部名を10字以内のローマ字で入力\n\
 	学科名は-で繋ぐこと\n(例：ri-oubutsu)"
-	collegeName = gets.chomp.downcase
+	college_name = gets.chomp.downcase
 end
 
 #問題設定
+#parts = 大問 question = 小問
 print "大問数を入力"
-numbersOfTaimon = gets.chomp.to_i
-numbersOfShomon = Array.new(numbersOfTaimon + 1)
-for i in 1..numbersOfTaimon do
+numbers_of_parts = gets.chomp.to_i
+numbers_of_questions = Array.new(numbers_of_parts + 1)
+for i in 1..numbers_of_parts do
 	print "小問数を入力(ない場合は0を入力)"
-	numbersOfShomon[i] = gets.chomp.to_i
+	numbers_of_questions[i] = gets.chomp.to_i
 end
 
 #フォルダ名セット
-univFolderPath = File.expand_path("../TEX-Genkou/14-Nyushi/14-" + ritsu + "/14-" + univName, __FILE__)
-collegeFolderPath = univFolderPath + "/14-" + univShortName + "-" + collegeName
-print univFolderPath
+univ_folder_path = File.expand_path("../TEX-Genkou/14-Nyushi/14-" + ritsu + "/14-" + univ_name, __FILE__)
+college_folder_path = univ_folder_path + "/14-" + univ_short_name + "-" + college_name
+print univ_folder_path
 
 
-FileUtils::mkdir_p(collegeFolderPath)
-for i in 1..numbersOfTaimon do
-	if numbersOfShomon[i] == 0
-		taimonFolderPath = collegeFolderPath + "/14-" + univShortName + "-" + collegeName + "-" + i.to_s
-		FileUtils::mkdir_p(taimonFolderPath)
+FileUtils::mkdir_p(college_folder_path)
+for i in 1..numbers_of_parts do
+	if numbers_of_questions[i] == 0
+		parts_folder_path = college_folder_path + "/14-" + univ_short_name + "-" + college_name + "-" + i.to_s
+		FileUtils::mkdir_p(parts_folder_path)
 	else
-		for j in 1..numbersOfShomon[i] do
-			shomonFolderPath = collegeFolderPath + "/14-" + univShortName + "-" + collegeName + "-" + i.to_s + "-" + j.to_s
-			FileUtils::mkdir_p(shomonFolderPath)
+		for j in 1..numbers_of_questions[i] do
+			questions_folder_path = college_folder_path + "/14-" + univ_short_name + "-" + college_name + "-" + i.to_s + "-" + j.to_s
+			FileUtils::mkdir_p(questions_folder_path)
 		end
 	end
 end
-FileUtils::mkdir_p(collegeFolderPath + "/14-" + univShortName + "-" + collegeName + "-end")
-FileUtils::mkdir_p(collegeFolderPath + "/14-" + univShortName + "-" + collegeName + "-matome")
+FileUtils::mkdir_p(college_folder_path + "/14-" + univ_short_name + "-" + college_name + "-end")
+FileUtils::mkdir_p(college_folder_path + "/14-" + univ_short_name + "-" + college_name + "-matome")
