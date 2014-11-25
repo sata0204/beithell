@@ -1,7 +1,7 @@
 # coding: sjis
-################
-#place the file on the directory includes TEX-Genkou
-################
+#########################################################
+###place the file on the directory includes TEX-Genkou###
+#########################################################
 
 require 'fileutils'
 
@@ -17,6 +17,7 @@ end
 
 print "大学名をローマ字12字以内で入力"
 univ_name = gets.chomp.capitalize!
+
 print "大学略称をローマ字で入力"
 univ_short_name = gets.chomp.upcase!
 
@@ -53,22 +54,20 @@ for i in 1..numbers_of_parts do
 end
 
 #フォルダ名セット
-univ_folder_path = File.expand_path("../TEX-Genkou/14-Nyushi/14-" + ritsu + "/14-" + univ_name, __FILE__)
-college_folder_path = univ_folder_path + "/14-" + univ_short_name + "-" + college_name
-print univ_folder_path
-
-
+univ_folder_path = File.expand_path("../TEX-Genkou/14-Nyushi/14-#{ritsu}/14-#{univ_name}", __FILE__)
+college_folder_path = "#{univ_folder_path}/14-#{univ_short_name}-#{college_name}"
 FileUtils::mkdir_p(college_folder_path)
+
 for i in 1..numbers_of_parts do
 	if numbers_of_questions[i] == 0
-		parts_folder_path = college_folder_path + "/14-" + univ_short_name + "-" + college_name + "-" + i.to_s
+		parts_folder_path = "#{college_folder_path}/14-#{univ_short_name}-#{college_name}-#{i.to_s}"
 		FileUtils::mkdir_p(parts_folder_path)
 	else
 		for j in 1..numbers_of_questions[i] do
-			questions_folder_path = college_folder_path + "/14-" + univ_short_name + "-" + college_name + "-" + i.to_s + "-" + j.to_s
+			questions_folder_path = "#{college_folder_path}/14-#{univ_short_name}-#{college_name}-#{i.to_s}-#{j.to_s}"
 			FileUtils::mkdir_p(questions_folder_path)
 		end
 	end
 end
-FileUtils::mkdir_p(college_folder_path + "/14-" + univ_short_name + "-" + college_name + "-end")
-FileUtils::mkdir_p(college_folder_path + "/14-" + univ_short_name + "-" + college_name + "-matome")
+FileUtils::mkdir_p("#{college_folder_path}/14-#{univ_short_name}-#{college_name}-end")
+FileUtils::mkdir_p("#{college_folder_path}/14-#{univ_short_name}-#{college_name}-matome")
