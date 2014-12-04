@@ -45,7 +45,7 @@
 	)
       )
 	;relative-eps-pathを整形して出力
-      (setq formatted-eps-path (concat "\\includegraphics[width=3.5cm]{" relative-eps-path "}"))
+      (setq formatted-eps-path (concat "\\includegraphics[width=3.5cm]{" (substring relative-eps-path 1 nil) "}"))
       (insert formatted-eps-path)
       ) 
     )
