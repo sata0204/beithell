@@ -70,22 +70,22 @@
       ;;フォルダ名の語幹部と活用語尾部を別にセッティング
       (setq suffixes_of_folders nil)
       (setq j 1)
-      (setq k 1)
       (while (<= j numbers_of_parts)
 	(if (equal (elt numbers_of_questions (- j 1)) 0) 
-	    (append suffixes_of_folders (list j))
+	    (setq suffixes_of_folders (append suffixes_of_folders (list j)))
+	  (setq k 1)
 	  (while (<= k (elt numbers_of_questions (- j 1)))
-	    (append suffixes_of_folders (list (format "%d-%d" j k)))
+	    (setq suffixes_of_folders (append suffixes_of_folders (list (format "%d-%d" j k))))
 	    (setq k (+ k 1))
 	    );while k end
 	  )
 	(setq j (+ j 1))
 	);while j end
-      (append suffixes_of_folders (list "end" "matome"))
+      (setq suffixes_of_folders (append suffixes_of_folders (list "end" "matome")))
       ;;フォルダ実作成
-      (make-directory college_folder_path)
+      (make-directory college_folder_path 'recursive)
       (dolist (suffix suffixes_of_folders)
-	(make-directory (format "%s/%s-%s" college_folder_path univ_college_folder_name suffix) 'ganba)
+	(make-directory (format "%s/%s-%s" college_folder_path univ_college_folder_name suffix) 'recursive)
 	)
       ) ;save-excursion
     ) ;let
