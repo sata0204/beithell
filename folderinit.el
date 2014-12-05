@@ -52,26 +52,31 @@
       (setq i 0)
       (while (< i numbers_of_parts)
 	(progn 
-	  (push (read-string (format "大問%dの小問数を入力" i)) numbers_of_questions)
+	  (push 
+	   (string-to-number (read-string (format "大問%dの小問数を入力" (+ i 1)))) 
+	   numbers_of_questions
+	   )
 	  (setq i (+ i 1))
-	\  )
+	  )
 	)
+      (setq numbers_of_questions (reverse numbers_of_questions))
 
       ;;フォルダ名セット
       (setq univ_folder_path (expand-file-name 
-			      (format "../TEX-Genkou/14-Nyushi/14-%c/14-%c" ritsu univ_name))
+			      (format "../../../../../../TEX-Genkou/14-Nyushi/14-%s/14-%s" ritsu univ_name))
 	    )
-      (setq univ_college_folder_name (format "14-%c-%c" univ_short_name college_name))
-      (setq college_folder_path (format "%c/%c" univ_folder_path univ_college_folder_name))
+      (setq univ_college_folder_name (format "14-%s-%s" univ_short_name college_name))
+      (setq college_folder_path (format "%s/%s" univ_folder_path univ_college_folder_name))
       ;;フォルダ名の語幹部と活用語尾部を別にセッティング
       (setq suffixes_of_folders nil)
-      (setq j 0)
-      (setq k 0)
-      (while (< j numbers_of_parts)
-	(if (equal (elt numbers_of_questions j) 0) 
+      (setq j 1)
+      (setq k 1)
+      (while (<= j numbers_of_parts)
+	(if (equal (elt numbers_of_questions (- j 1)) 0) 
 	    (append suffixes_of_folders (list j))
-	  (while (< k (elt numbers_of_questions j))
-	    (append suffixes_of_folders (list (format "%d-%d" j k)));True
+	  (while (<= k (elt numbers_of_questions (- j 1)))
+	    (append suffixes_of_folders (list (format "%d-%d" j k)))
+	    (setq k (+ k 1))
 	    );while k end
 	  )
 	(setq j (+ j 1))
@@ -80,7 +85,7 @@
       ;;フォルダ実作成
       (make-directory college_folder_path)
       (dolist (suffix suffixes_of_folders)
-	(make-directory (format "%s/%s-%s" college_folder_path univ_college_folder_name suffix))
+	(make-directory (format "%s/%s-%s" college_folder_path univ_college_folder_name suffix) 'ganba)
 	)
       ) ;save-excursion
     ) ;let
