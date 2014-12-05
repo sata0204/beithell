@@ -3,15 +3,15 @@
   (interactive)
   (let (;;local functions
 	(set-string-var (lambda (varname prompt) 
-			  (setq varname (read-string prompt))))
+			  (set varname (read-string prompt))))
 	(set-numerical-var (lambda (varname prompt) 
-			     (setq varname (string-to-number (read-string prompt)))))
+			     (set varname (string-to-number (read-string prompt)))))
 	(set-upcased-string-var (lambda (varname prompt) 
-				  (setq varname (upcase-word (read-string prompt)))))
+				  (set varname (upcase (read-string prompt)))))
 	(set-downcased-string-var (lambda (varname prompt) 
-				    (setq varname (downcase-word (read-string prompt)))))
+				    (set varname (downcase (read-string prompt)))))
 	(set-capitalized-string-var (lambda (varname prompt) 
-				      (setq varname (capitalize-word (read-string prompt)))))
+				      (set varname (capitalize (read-string prompt)))))
 	;;local variables
 	ritsu univ_name univ_short_name has_only_college college_option college_name 
 	numbers_of_parts i number_of_questions univ_folder_path univ_college_folder_name
