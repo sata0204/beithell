@@ -51,11 +51,11 @@
       (funcall set-numerical-var 'numbers_of_parts "大問数を入力")
       (setq i 0)
       (while (< i numbers_of_parts)
-	     (progn 
-	       (push number_of_questions (read-string (format "大問%dの小問数を入力" i)))
-	       (setq i (+ i 1))
-	       )
-	     )
+	(progn 
+	  (push number_of_questions (read-string (format "大問%dの小問数を入力" i)))
+	  (setq i (+ i 1))
+	  )
+	)
 
       ;;フォルダ名セット
       (setq univ_folder_path (expand-file-name 
@@ -68,20 +68,20 @@
       (setq j 0)
       (setq k 0)
       (while (< j numbers_of_parts)
-	((if (equal (elt number_of_questions j) 0) 
-	     (append suffixes_of_folders (list j))
-	   (while (< k (elt number_of_questions j))
-	     (append suffixes_of_folders (list (format "%d-%d" j k)));True
-	     );while k end
-	   )
-	 (setq j (+ j 1))
-	 );while j end
-	(append suffixes_of_folders (list "end" "matome"))
-	;;フォルダ実作成
-	(make-directory college_folder_path)
-	(dolist (suffix suffixes_of_folders)
-	  (make-directory (format "%s/%s-%s" college_folder_path univ_college_folder_name suffix))
+	(if (equal (elt number_of_questions j) 0) 
+	    (append suffixes_of_folders (list j))
+	  (while (< k (elt number_of_questions j))
+	    (append suffixes_of_folders (list (format "%d-%d" j k)));True
+	    );while k end
 	  )
-	) ;save-excursion
+	(setq j (+ j 1))
+	);while j end
+      (append suffixes_of_folders (list "end" "matome"))
+      ;;フォルダ実作成
+      (make-directory college_folder_path)
+      (dolist (suffix suffixes_of_folders)
+	(make-directory (format "%s/%s-%s" college_folder_path univ_college_folder_name suffix))
+	)
+      ) ;save-excursion
     ) ;let
   ) ;defun
