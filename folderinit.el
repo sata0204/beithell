@@ -14,7 +14,7 @@
 				      (set varname (capitalize (read-string prompt)))))
 	;;local variables
 	ritsu univ_name univ_short_name has_only_college college_option college_name 
-	numbers_of_parts i number_of_questions univ_folder_path univ_college_folder_name
+	numbers_of_parts i numbers_of_questions univ_folder_path univ_college_folder_name
 	college_folder_path suffixes_of_folders j suffix
 	)
     (save-excursion
@@ -52,9 +52,9 @@
       (setq i 0)
       (while (< i numbers_of_parts)
 	(progn 
-	  (push number_of_questions (read-string (format "大問%dの小問数を入力" i)))
+	  (push (read-string (format "大問%dの小問数を入力" i)) numbers_of_questions)
 	  (setq i (+ i 1))
-	  )
+	\  )
 	)
 
       ;;フォルダ名セット
@@ -68,9 +68,9 @@
       (setq j 0)
       (setq k 0)
       (while (< j numbers_of_parts)
-	(if (equal (elt number_of_questions j) 0) 
+	(if (equal (elt numbers_of_questions j) 0) 
 	    (append suffixes_of_folders (list j))
-	  (while (< k (elt number_of_questions j))
+	  (while (< k (elt numbers_of_questions j))
 	    (append suffixes_of_folders (list (format "%d-%d" j k)));True
 	    );while k end
 	  )
