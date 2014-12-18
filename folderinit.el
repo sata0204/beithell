@@ -12,6 +12,9 @@
 				    (set varname (downcase (read-string prompt)))))
 	(set-capitalized-string-var (lambda (varname prompt) 
 				      (set varname (capitalize (read-string prompt)))))
+	(insert-in-list-at-nth (lambda (listname nth) 
+			 (setcdr (nthcdr nth listname) 
+				 (cons (+ nth 1) (nthcdr (+ nth 1) listname))))) 
 	;;local variables
 	ritsu univ_name univ_short_name has_only_college college_option college_name 
 	numbers_of_parts numbers_of_questions univ_folder_path univ_college_folder_name
@@ -49,17 +52,27 @@
 
       ;;問題設定
       (funcall set-numerical-var 'numbers_of_parts "大問数を入力")
-      (let (i 0)
-	(while (< i numbers_of_parts)
-	  (progn 
-	    (push 
-	     (string-to-number (read-string (format "大問%dの小問数を入力" (+ i 1)))) 
-	     numbers_of_questions
-	     )
-	    (setq i (+ i 1))
-	    )
+      (setq parts_consist_of_questions ;小問設定開始
+	    (split-string 
+	     (funcall set-string-var 'parts_consist_of_questions 
+		      "小問集合問題である大問を入力\n半角数字、半角スペース区切り")))
+      (let ((i 0)) ;parts_consist_of_questionsを数字リスト化
+	(while (< i (length parts_consist_of_questions))
+	  (setcar (nthcdr i parts_consist_of_questions) 
+		  (string-to-number (nth i parts_consist_of_questions)))
+	  (setq i (+ i 1))
 	  )
 	)
+
+      (let ((i 0))
+	(while (< i numbers_of_parts)
+	  (progn 
+	    (push ;(True:ask False:0) into numbers_of_questions
+	     (if (member (+ i 1) parts_consist_of_questions) 
+		 (string-to-number (read-string (format "大問%dの小問数を入力" (+ i 1)))) 0) 
+	     numbers_of_questions)
+	    (setq i (+ i 1))
+	    )));progn, while, let is closed
       (setq numbers_of_questions (reverse numbers_of_questions))
 
       ;;フォルダ名セット
@@ -70,11 +83,11 @@
       (setq college_folder_path (format "%s/%s" univ_folder_path univ_college_folder_name))
       ;;フォルダ名の語幹部と活用語尾部を別にセッティング
       (setq suffixes_of_folders nil)
-      (let  (j 1)
+      (let  ((j 1))
 	(while (<= j numbers_of_parts)
 	  (if (equal (elt numbers_of_questions (- j 1)) 0) 
 	      (setq suffixes_of_folders (append suffixes_of_folders (list j)))
-	    (let (k 1)
+	    (let ((k 1))
 	      (while (<= k (elt numbers_of_questions (- j 1)))
 		(setq suffixes_of_folders (append suffixes_of_folders (list (format "%d-%d" j k))))
 		(setq k (+ k 1))
