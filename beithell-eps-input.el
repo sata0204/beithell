@@ -1,3 +1,4 @@
+(provide beithell-eps-input)
 (defun beithell-eps-input()
   "Provides easy insertion of .eps pictures"
   (interactive)

@@ -1,3 +1,4 @@
+(provide beithell-folderinit)
 (defun beithell-folderinit ()
   "Initialize folders."
   (interactive)

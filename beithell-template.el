@@ -1,3 +1,4 @@
+(provide beithell-funcname)
 (defun beithell-funcname()
   "Desrciption"
   (interactive)
