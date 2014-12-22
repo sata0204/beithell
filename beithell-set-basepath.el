@@ -3,7 +3,13 @@
   "read and set TEX-Genkou folder bath."
   (interactive)
   (progn
-    (defvar beithll-base-path)
+    (defvar beithell-base-path)
     (save-excursion
-      (setq beithell-base-path (read-string "TEX-Genkouのフォルダパスを入力\n例：C:\work\TEX-Genkou"))
-      )))
+      (let ((true-path-p nil))
+	(while (not true-path-p)
+	  (setq beithell-base-path 
+		(read-string "TEX-Genkouの存在するパスを入力\n例：C:\\work\\TEX-Genkou\\14-Nyushi\\...なら\nC:\\work :"))
+	  (setq beithell-base-path (concat beithell-base-path "\\TEX-Genkou\\"))
+	  (setq true-path-p (yes-or-no-p (format "TEX-Genkouのパスは%sですか？" beithell-base-path)))
+	  )))))
+;;code end
