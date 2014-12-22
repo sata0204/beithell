@@ -1,4 +1,4 @@
-(defun eps-input()
+(defun beithell-eps-input()
   "Provides easy insertion of .eps pictures"
   (interactive)
   (let 
@@ -14,11 +14,10 @@
        formatted-eps-path
        )
     (save-excursion
-        ;図を挿入するでござる
-	;パス下ごしらえ
+      ;;パス下ごしらえ
       (setq current-path buffer-file-name)
       (setq split-path (split-string current-path "/"))
-	;大学名から図名を取得
+      ;;大学名から図名を取得
       (setq split-actual-tex-path (member "TEX-Genkou" split-path))
       (setq split-relative-tex-path (push "../../../../../.." split-actual-tex-path))
       (setq tex-file-name (elt (last split-relative-tex-path) 0))
@@ -30,7 +29,7 @@
 	     )
 	    )
 
-	;epsのpathになるよう加工
+      ;;epsのpathになるよう加工
       (setq split-relative-eps-path (copy-sequence split-relative-tex-path))
       (setf (elt 
 	     split-relative-eps-path 
@@ -44,7 +43,7 @@
 	      (concat relative-eps-path "/" (pop split-relative-eps-path))
 	)
       )
-	;relative-eps-pathを整形して出力
+      ;;relative-eps-pathを整形して出力
       (setq formatted-eps-path (concat "\\includegraphics[width=3.5cm]{" (substring relative-eps-path 1 nil) "}"))
       (insert formatted-eps-path)
       ) 

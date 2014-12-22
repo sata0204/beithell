@@ -1,5 +1,5 @@
-(defun beit-hell-test ()
-  "This is a test of the beithell."
+(defun beit-hell-folderinit ()
+  "Initialize folders."
   (interactive)
   (let (;;local functions
 	(set-string-var (lambda (varname prompt) 
