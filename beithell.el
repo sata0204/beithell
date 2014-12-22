@@ -8,6 +8,10 @@
 
 ;; To obtain newest beithell, do
 ;;      git clone git://github.com/c01o/beithell.git
+
+;global vars
+;beithell-base-path
+
 ;;; Code:
 (require 'beithell-eps-input)
 (require 'beithell-folderinit)

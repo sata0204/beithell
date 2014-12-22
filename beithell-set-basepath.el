@@ -3,7 +3,7 @@
   "read and set TEX-Genkou folder bath."
   (interactive)
   (progn
-    (defvar base-path)
+    (defvar beithll-base-path)
     (save-excursion
-      (setq base-path (read-string "TEX-Genkouのフォルダパスを入力\n例：C:\work\TEX-Genkou"))
+      (setq beithell-base-path (read-string "TEX-Genkouのフォルダパスを入力\n例：C:\work\TEX-Genkou"))
       )))
