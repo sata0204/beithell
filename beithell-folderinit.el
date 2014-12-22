@@ -1,4 +1,4 @@
-(defun beit-hell-folderinit ()
+(defun beithell-folderinit ()
   "Initialize folders."
   (interactive)
   (let (;;local functions

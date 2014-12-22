@@ -1,8 +1,10 @@
-folder_init
+beithell
 ===========
 **Make your tex work easy.**
 
-## folderinit.el
-create and initialize folders.
-## zu.el
+## beithell-folderinit.el
+create and intialize folders.
+###beithell-initializer.el
+initialize folders.
+## beithell-eps-input.el
 insert .eps pictures.
