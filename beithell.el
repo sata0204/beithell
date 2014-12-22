@@ -10,12 +10,13 @@
 ;;      git clone git://github.com/c01o/beithell.git
 
 ;global vars
-;beithell-base-path
+;beithell-basepath : after beithell-set-basepath
 
 ;;; Code:
 (require 'beithell-eps-input)
 (require 'beithell-folderinit)
 (require 'beithell-initializer)
+(require 'beithell-set-basepath)
 
 (provide 'beithell)
 ;; code end
