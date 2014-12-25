@@ -1,4 +1,4 @@
-(provide hcsm-basicfunc)
+(provide 'hcsm-basicfunc)
 
 (defun hcsm-set-string-var(varname prompt &optional convert-option)
   "set `varname` from mini-buffer." ()

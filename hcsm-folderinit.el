@@ -1,5 +1,5 @@
-(provide hcsm-folderinit)
-(require hcsm-basicfunc)
+(provide 'hcsm-folderinit)
+(require 'hcsm-basicfunc)
 
 (defun hcsm-folderinit ()
   "Initialize folders."

@@ -1,4 +1,4 @@
-(provide hcsm-initializer)
+(provide 'hcsm-initializer)
 (defun hcsm-mondai-folder()
   "inside mondai folder."
   (interactive)
