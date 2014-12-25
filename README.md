@@ -1,20 +1,20 @@
-beithell
+hcsm
 ===========
 **Make your tex work easy.**
 
-## beithell.el (under construction)
+## hcsm.el (under construction)
 its boss of all el files.
-beithell might become major-mode or something.
+hcsm might become major-mode or something.
 
-## beithell-folderinit.el
+## hcsm-folderinit.el
 create and intialize folders.
-###beithell-initializer.el (under construction)
+###hcsm-initializer.el (under construction)
 initialize folders.
-might be only called by beithell-folderinit.el.
+might be only called by hcsm-folderinit.el.
 
-##beithell-set-basepath.el
+##hcsm-set-basepath.el
 get the abs path to TEX-Genkou dir.  
-and save it to global var, `beithell-basepath`.
+and save it to global var, `hcsm-basepath`.
 
-## beithell-eps-input.el
+## hcsm-eps-input.el
 insert `.eps` pictures.
