@@ -1,5 +1,5 @@
-(provide beithell-eps-input)
-(defun beithell-eps-input()
+(provide hcsm-eps-input)
+(defun hcsm-eps-input()
   "Provides easy insertion of .eps pictures"
   (interactive)
   (let 

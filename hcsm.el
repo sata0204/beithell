@@ -1,20 +1,20 @@
-;;; beithell.el --- make your tex works easy 
+;;; hcsm.el --- make your tex works easy 
 
 ;; Author/Maintainer:
 ;;      c01o <melty.antarcticite@gmail.com>
-;; URL: http://github.com/c01o/beithell
+;; URL: http://github.com/c01o/hcsm
 
-;; To obtain newest beithell, do
-;;      git clone git://github.com/c01o/beithell.git
+;; To obtain newest hcsm, do
+;;      git clone git://github.com/c01o/hcsm.git
 
 ;global vars
-;beithell-basepath : after beithell-set-basepath
+;hcsm-basepath : after hcsm-set-basepath
 
 ;;; Code:
-(require 'beithell-eps-input)
-(require 'beithell-folderinit)
-(require 'beithell-initializer)
-(require 'beithell-set-basepath)
+(require 'hcsm-eps-input)
+(require 'hcsm-folderinit)
+(require 'hcsm-initializer)
+(require 'hcsm-set-basepath)
 
-(provide 'beithell)
+(provide 'hcsm)
 ;; code end

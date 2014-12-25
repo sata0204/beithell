@@ -1,5 +1,5 @@
-(provide beithell-folderinit)
-(defun beithell-folderinit ()
+(provide hcsm-folderinit)
+(defun hcsm-folderinit ()
   "Initialize folders."
   (interactive)
   (let (;;local functions
@@ -76,10 +76,10 @@
 
 
        ;;フォルダ名セット
-       (when (eq beithell-basepath nil) (beithell-set-basepath)) ;confirm basepath exsistence
+       (when (eq hcsm-basepath nil) (hcsm-set-basepath)) ;confirm basepath exsistence
        (setq univ_folder_path 
 	     (expand-file-name (format "%s/14-Nyushi/14-%s/14-%s" 
-				       beithell-basepath ritsu univ_name)))
+				       hcsm-basepath ritsu univ_name)))
        (setq univ_college_folder_name (format "14-%s-%s" univ_short_name college_name))
        (setq college_folder_path (format "%s/%s" univ_folder_path univ_college_folder_name))
 
