@@ -1,4 +1,4 @@
-(provide hcsm-eps-input)
+(provide 'hcsm-eps-input)
 ;;;run the function under the path like 
 ;;;/TEX-Genkou/14-kokuritsu/14-Daigaku/14-DIGK-gkb/14-DIGK-gkb-1/14-DIGK-gkb-toi-1.tex
 (defun hcsm-eps-input()

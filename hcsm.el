@@ -11,10 +11,10 @@
 ;hcsm-basepath : after hcsm-set-basepath
 
 ;;; Code:
+(require 'hcsm-basicfunc)
 (require 'hcsm-eps-input)
 (require 'hcsm-folderinit)
 (require 'hcsm-initializer)
-(require 'hcsm-set-basepath)
 
 (provide 'hcsm)
 ;; code end

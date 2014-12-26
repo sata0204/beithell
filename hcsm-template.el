@@ -1,5 +1,5 @@
-(provide hcsm-funcname)
-(defun hcsm-funcname()
+(provide 'hcsm-funcname)
+(defun 'hcsm-funcname()
   "Desrciption"
   (interactive)
   (let 
