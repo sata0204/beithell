@@ -5,7 +5,7 @@
 (defun hcsm-eps-input (number)
   "Provides easy insertion of .eps pictures"
   (interactive "n図の番号: ")
-  (hcsm-new-file (format "%s-%s.eps" (file-name-sans-extension (buffer-file-name) ) number)) ;該当epsが存在しないとき空ファイルを置くか聞く
+  (hcsm-ask-if-create-file (format "%s-%s.eps" (file-name-sans-extension (buffer-file-name)) number))
   (insert (format "\\includegraphics[width=3.5cm]{../../../../../../%s-%s}" (file-name-sans-extension (file-relative-name buffer-file-name hcsm-TEX-Genkou-position)) number)))
   
 ;code end

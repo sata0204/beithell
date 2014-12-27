@@ -1,4 +1,5 @@
 (provide 'hcsm-funcname)
+(require 'hcsm-basicfuncs)
 (defun 'hcsm-funcname()
   "Desrciption"
   (interactive)
