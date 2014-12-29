@@ -1,24 +1,24 @@
 (provide 'hcsm-setup)
 (require 'hcsm-basicfuncs)
 
-(defun 'hcsm-setup()
+(defun hcsm-setup()
   "provide setting functions."
   (interactive)
   (save-excursion
     ;;hcsm-TEX-Genkou-path
-    (hcsm-modify-settings hcsm-TEX-Genkou-path (hcsm-get-basepath))
+    (hcsm-modify-settings 'hcsm-TEX-Genkou-path (hcsm-get-basepath))
     (hcsm-create-new-directory hcsm-basepath)
 
     ;;hcsm-school-year
     (hcsm-modify-settings hcsm-school-year (read-string "何年度?"))
 
     );save-excursion
-  );defun
+  
 
 (defun hcsm-modify-settings(name value)
   "modify/generate setting written in `hcsm-var-settings.el`."
   (save-excursion 
-    (if (boundp (symbol-value name)) 
+    (if (boundp name) 
 	(when (y-or-n-p (format "%s の値を %s にしますか？" name value))
 	  (hcsm-open-to-kill "~/.emacs.d/hocsom/hcsm-var-settings.el" ;; var `name` exists
 			     'hcsm-overwrite-defvar (list name value))) ;; -> modify setting
