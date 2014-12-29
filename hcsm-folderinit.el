@@ -44,9 +44,7 @@
       (hcsm-set-string-var 'ritsu "国立大なら1を、私立大なら2を入力" 'string-to-number)
       (cond ((equal ritsu 1) (setq ritsu "kokuritsu"))
 	    ((equal ritsu 2) (setq ritsu "shiritsu"))
-	    (t (error "なに立大学か不明。"))
-	    )
-      ritsu)))
+	    (t (error "なに立大学か不明。"))))))
 
 (defun hcsm-ask-collage()
   "nani gakubu?" ()
@@ -102,9 +100,21 @@
   "create tex folders." ()
   (let (suffix)
     (dolist (suffix list-of-suffixes)
-      (make-directory 
-       (format "%s/%s-%s" college-folder-path univ-college-folder-name suffix) 
-       'recursive))))
+      (progn
+	(make-directory 
+	 (format "%s/%s-%s" college-folder-path univ-college-folder-name suffix) 
+	 'recursive)
+	(hcsm-create-files college-folder-path univ-college-folder-name suffix)))))
+
+(defun hcsm-create-files(college-folder-path univ-college-folder-name suffix)
+  "create tex files." ()
+  (cond ((string-match "" suffix) 
+	 (hcsm-ask-if-create-file file-name template-path 1))
+	 ((string-match "" suffix) 
+	 (hcsm-ask-if-create-file file-name template-path 1))
+	 ((string-match "" suffix) 
+	 (hcsm-ask-if-create-file file-name template-path g))))
+
 
 (defun hcsm-create-suffixes(numbers-of-parts numbers-of-questions)
   "create list of suffixes about parts and questions." ()
@@ -114,8 +124,10 @@
       (let  ((i 1))
 	(while (<= i numbers-of-parts)
 	  (if (equal (nth (- i 1) numbers-of-questions) 0) 
+	      ;;unless questional-part
 	      (add-to-list 'suffixes-of-folders (format "%d" i))
-	    (let ((j 1))
+	    ;; if the part IS questional-part
+	    (let ((j 1)) 
 	      (while (<= j (nth (- i 1) numbers-of-questions))
 		(add-to-list 'suffixes-of-folders (format "%d-%d" i j))
 		(setq j (+ j 1)))));let j, if end
