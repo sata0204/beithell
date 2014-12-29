@@ -32,7 +32,7 @@
     (defvar hcsm-basepath) ;hcsm-basepath should be void If you run the func.
     (let (correct-path-flag)
       (while (not correct-path-flag)
-	(setq hcsm-basepath (format "%s/TEX-Genkou" (read-file-name "TEX-Genkouの存在するパスを入力\n例：C:\\work\\TEX-Genkou\\14-Nyushi\\...なら\nC:/work : ")))
+	(setq hcsm-basepath (format "%sTEX-Genkou" (read-file-name "TEX-Genkouの存在するパスを入力\n例：C:\\work\\TEX-Genkou\\14-Nyushi\\...なら\nC:/work/ :\n例：~/work/TEX-Genkou/14-Nyushi/...なら\n~/work/ ")))
 	(setq correct-path-flag
 	      (yes-or-no-p (format "TEX-Genkouのパスは%sですか？" hcsm-basepath))))
 	hcsm-basepath ;return it
