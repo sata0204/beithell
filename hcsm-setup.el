@@ -10,7 +10,7 @@
     (hcsm-create-new-directory hcsm-basepath)
 
     ;;hcsm-school-year
-    (hcsm-modify-settings hcsm-school-year (read-string "何年度?"))
+    (hcsm-modify-settings 'hcsm-school-year (read-string "何年度?"))
 
     );save-excursion
   );defun
