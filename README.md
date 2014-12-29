@@ -6,13 +6,11 @@ hcsm
 Its boss of all el files.
 hcsm might become major-mode or something.
 
-## hcsm-basicfuncs.el
-Define some functions useful for me.
-### hcsm-set-string-var(varname prompt &optional convert-option)
-bind `varname` to string got from minibuffer with prompt.
-### hcsm-set-basepath
-get the abs path to `TEX-Genkou` dir.  
-and save it to global var, `hcsm-basepath`.
+## hcsm-var-settings.el
+Declare global vars using defvar.
+`hcsm-TEX-Genkou-path`, `hcsm-school-year` is set now.
+### hcsm-setup.el
+Provide some functions to set your var-settings up. 
 
 ## hcsm-folderinit.el
 Provide `hcsm-folderinit`.
@@ -32,3 +30,8 @@ Provide `hcsm-eps-input`.
 It help you to insert .eps pictures.
 Run it interactive in the path like;
 `/TEX-Genkou/14-kokuritsu/14-HouraiGakuen/14-HRI-gkb/14-HRI-gkb-1/14-HRI-gkb-toi-1.tex`
+
+## hcsm-basicfuncs.el
+define some functions useful for me.
+## hcsm-templete.el
+define defun templete useful for me.
