@@ -21,6 +21,10 @@ initialize folders.
 might be only called by hcsm-folderinit.el.
 or might be vanished.
 
+## hcsm-setup.el
+store some settings.
+will be renamed to hcsm-var-settings.el after merged dev branches.
+
 ## hcsm-eps-input.el
 Provide `hcsm-eps-input`.
 It help you to insert .eps pictures.

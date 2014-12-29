@@ -1,3 +1,4 @@
+;; -*- coding: utf-8 -*-
 (provide 'hcsm-funcname)
 (require 'hcsm-basicfuncs)
 (defun 'hcsm-funcname()

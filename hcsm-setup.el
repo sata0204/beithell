@@ -38,4 +38,4 @@
 	));while let end
     (setq hcsm-basepath ;convert windows path into *nix-like path
 	  (mapconcat 'identity (split-string hcsm-basepath "\\\\") "/"))))
-					;code end
+;;code end
