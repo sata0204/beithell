@@ -48,39 +48,15 @@
 
 (defun hcsm-ask-collage()
   "nani gakubu?" ()
-  (let (has-only-college college-option college-name)
-    (save-excursion
-      (hcsm-set-string-var 'has-only-college 
-			   "単学部なら1を、そうでないなら2を入力" 'string-to-number)
-      (cond 
-       ((equal has-only-college 1) 
-	(progn 
-	  (hcsm-set-string-var 
-	   'college-option "前期なら1、中期なら2、後期なら3、医学部のみなら4を入力" 
-	   'string-to-number)
-	  (cond
-	   ((equal college-option 1) (setq college-name "zen"))
-	   ((equal college-option 2) (setq college-name "chu"))
-	   ((equal college-option 3) (setq college-name "ko"))
-	   ((equal college-option 4) (setq college-name "i"))
-	   (t (error "何期大学か不明。")))));cond=1 end
-       ((equal has-only-college 2) 
-	(hcsm-set-string-var 'college-name ;use concat only for code indent
-			     (concat "学部名を10字以内のローマ字で入力\n"  
-				     "学科名は-で繋ぐこと\n" 
-				     "(例：ri-oubutsu)") 'downcase));cond=2 end
-       (t (error "何学部か不明。")));cond end
-      )))
+    (downcase (read-string "学部名を10字以内のローマ字で入力\n学科名は-で繋ぐこと\n(例：ri-oubutsu)")))
 
 (defun hcsm-question-setting()
-  "return list `numbers of questions`. numbers-of-parts is equal to its length." ()
+  "return list `numbers-of-questions`. numbers-of-parts is equal to its length." ()
   (let (numbers-of-parts parts-consist-of-questions numbers-of-questions)
     ;;大問設定
     (hcsm-set-string-var 'numbers-of-parts "大問数を入力" 'string-to-number)
     (setq parts-consist-of-questions
-	  (split-string 
-	   (hcsm-set-string-var 'parts-consist-of-questions 
-				"小問集合問題である大問を入力\n半角数字、半角スペース区切り")))
+	  (split-string (read-string "小問集合問題である大問を入力\n半角数字、半角スペース区切り")))
     (setq parts-consist-of-questions ;リストの要素を文字から数字リテラルに変換
 	  (mapcar #'string-to-number parts-consist-of-questions))
     ;;小問設定
@@ -91,9 +67,8 @@
 	   (if (member (+ i 1) parts-consist-of-questions) 
 	       (string-to-number (read-string (format "大問%dの小問数を入力" (+ i 1)))) 0) 
 	   numbers-of-questions)
-	  (setq i (+ i 1))
-	  )));progn, while, let
-    (setq numbers-of-questions (reverse numbers-of-questions))
+	  (setq i (+ i 1))))) ;let end
+    (reverse numbers-of-questions)
     ))
 
 (defun hcsm-create-folders(list-of-suffixes college-folder-path univ-college-folder-name)
