@@ -1,3 +1,4 @@
+;; -*- coding: utf-8 -*-
 (provide 'hcsm-funcname)
 (defun 'hcsm-funcname()
   "Desrciption"
