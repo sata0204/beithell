@@ -13,7 +13,8 @@
     (hcsm-modify-settings hcsm-school-year (read-string "何年度?"))
 
     );save-excursion
-  
+  );defun
+
 
 (defun hcsm-modify-settings(name value)
   "modify/generate setting written in `hcsm-var-settings.el`."
@@ -25,16 +26,16 @@
       (hcsm-open-to-kill "~/.emacs.d/hocsom/hcsm-var-settings.el" ;; when `name` is void 
                          'hcsm-write-defvar (list name value))))) ;; -> create new setting
 
-    (defun hcsm-get-basepath()
-      "read and set TEX-Genkou folder bath."
-      (save-excursion
-        (defvar hcsm-basepath) ;hcsm-basepath should be void If you run the func.
-        (let (correct-path-flag)
-          (while (not correct-path-flag)
-                 (setq hcsm-basepath (format "%s\\TEX-Genkou" (read-string "TEX-Genkouの存在するパスを入力\n例：C:\\work\\TEX-Genkou\\14-Nyushi\\...なら\nC:\\work : ")))
-                 (setq correct-path-flag
-                       (yes-or-no-p (format "TEX-Genkouのパスは%sですか？" hcsm-basepath)))
-                 ));while let end
-        (setq hcsm-basepath ;convert windows path into *nix-like path
-              (mapconcat 'identity (split-string hcsm-basepath "\\\\") "/"))))
-    ;code end
+(defun hcsm-get-basepath()
+  "read and set TEX-Genkou folder bath."
+  (save-excursion
+    (defvar hcsm-basepath) ;hcsm-basepath should be void If you run the func.
+    (let (correct-path-flag)
+      (while (not correct-path-flag)
+	(setq hcsm-basepath (format "%s\\TEX-Genkou" (read-string "TEX-Genkouの存在するパスを入力\n例：C:\\work\\TEX-Genkou\\14-Nyushi\\...なら\nC:\\work : ")))
+	(setq correct-path-flag
+	      (yes-or-no-p (format "TEX-Genkouのパスは%sですか？" hcsm-basepath)))
+	));while let end
+    (setq hcsm-basepath ;convert windows path into *nix-like path
+	  (mapconcat 'identity (split-string hcsm-basepath "\\\\") "/"))))
+					;code end

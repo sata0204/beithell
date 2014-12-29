@@ -1,3 +1,3 @@
 (provide 'hcsm-var-settings)
-(defvar hcsm-TEX-Genkou-path "~/emacs-24.2-20121208/bin/")
+(defvar hcsm-TEX-Genkou-path "C:/work/TEX-Genkou")
 (defvar hcsm-school-year "15")
