@@ -52,10 +52,10 @@
   (hcsm-open-to-kill "~/.emacs.d/hocsom/hcsm-setup.el" 'hcsm-defvar (list "hcsm-TEX-Genkou-position" position))
   (hcsm-new-directory "TEX-Genkou" position))
 
-(defun hcsm-ask-if-create-file (file-name &optional template-path)
+(defun hcsm-ask-if-create-file (file-name &optional template-path force-flag)
   "when `file-name` doesn't exists, ask if create it. you can use template."
   (unless (file-exists-p file-name)
-    (when (y-or-n-p (format "%sを作成しますか?" file-name))
+    (when (unless force-flag (y-or-n-p (format "%sを作成しますか?" file-name)))
       (if template-path
 	  (hcsm-open-to-kill file-name (lambda () (insert-file-contents template-path)) nil)
 	(hcsm-open-to-kill file-name (lambda ()) nil)))))
