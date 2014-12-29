@@ -11,6 +11,7 @@
 ;hcsm-basepath : after hcsm-set-basepath
 
 ;;; Code:
+(require 'hcsm-setup)
 (require 'hcsm-basicfuncs)
 (require 'hcsm-eps-input)
 (require 'hcsm-folderinit)
