@@ -34,7 +34,7 @@
       (while (not correct-path-flag)
 	(setq hcsm-basepath (format "%s/TEX-Genkou" (read-file-name "TEX-Genkouの存在するパスを入力\n例：C:\\work\\TEX-Genkou\\14-Nyushi\\...なら\nC:/work : ")))
 	(setq correct-path-flag
-	      (yes-or-no-p (format "TEX-Genkouのパスは%sですか？" hcsm-basepath)))
+	      (yes-or-no-p (format "TEX-Genkouのパスは%sですか？" hcsm-basepath))))
 	hcsm-basepath ;return it
-	))))
+	)))
 ;;code end
