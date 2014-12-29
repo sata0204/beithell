@@ -39,7 +39,7 @@
 (defun hcsm-create-new-directory (path-to-dir)
   "ディレクトリを存在しないときのみ作成する"
   (unless (file-directory-p path-to-dir)
-    (make-directory path-to-dir)))
+    (make-directory path-to-dir 'recursive)))
 
 (defun hcsm-ask-if-create-file (file-name &optional template-path)
   "when `file-name` doesn't exists, ask if create it. you can use template."
