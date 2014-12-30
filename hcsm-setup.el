@@ -21,10 +21,11 @@
   (save-excursion 
     (if (boundp name) 
 	(when (y-or-n-p (format "%s の値を %s にしますか？" name value))
-	  (hcsm-open-to-kill "~/.emacs.d/hocsom/hcsm-var-settings.el" ;; var `name` exists
+	  (hcsm-open-to-kill "~/.emacs.d/hocsom/hcsm-var-settings.el"   ;; var `name` exists
 			     'hcsm-overwrite-defvar (list name value))) ;; -> modify setting
       (hcsm-open-to-kill "~/.emacs.d/hocsom/hcsm-var-settings.el" ;; when `name` is void 
-                         'hcsm-write-defvar (list name value))))) ;; -> create new setting
+                         'hcsm-write-defvar (list name value)))   ;; -> create new setting
+    (set name value)))
 
 (defun hcsm-get-basepath()
   "read and set TEX-Genkou folder bath."
