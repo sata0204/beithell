@@ -44,7 +44,7 @@
 (defun hcsm-ask-if-create-file (file-name &optional template-path force-flag)
   "when `file-name` doesn't exists, ask if create it. you can use template."
   (unless (file-exists-p file-name)
-    (when (unless force-flag (y-or-n-p (format "%sを作成しますか?" file-name)))
+    (when (if force-flag t (y-or-n-p (format "%sを作成しますか?" file-name)))
       (if template-path
 	  (hcsm-open-to-kill file-name (lambda () (insert-file-contents template-path)) nil)
 	(hcsm-open-to-kill file-name (lambda ()) nil)))))
