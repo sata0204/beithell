@@ -12,6 +12,8 @@
     ;;hcsm-school-year
     (hcsm-modify-settings 'hcsm-school-year (read-string "何年度?"))
 
+    ;;hcsm-template-path
+    (hcsm-modify-settings 'hcsm-template-path (read-directory-name "template-path:"));temp
     );save-excursion
   );defun
 
