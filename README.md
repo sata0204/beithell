@@ -18,12 +18,14 @@ It asks (univ/college/parts/questions/something other)
 and create folders related to them.
 ###hcsm-initializer.el (under construction)
 initialize folders.
-might be only called by hcsm-folderinit.el.
-or might be vanished.
+`hcsm-create-files` copies appropriate template and save its copy as proper form.
+it search for templates in hocsom/templates/tex/* by default.
 
-## hcsm-setup.el
-store some settings.
-will be renamed to hcsm-var-settings.el after merged dev branches.
+
+## hcsm-var-settings.el
+store global var settings.
+### hcsm-setup.el
+provide `hcsm-setup`, a function to edit hcsm-var-settings.el interactively.
 
 ## hcsm-eps-input.el
 Provide `hcsm-eps-input`.
