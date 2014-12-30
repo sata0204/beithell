@@ -1,5 +1,6 @@
 (provide 'hcsm-folderinit)
 (require 'hcsm-basicfuncs)
+(require 'hcsm-fileinit)
 
 (defun hcsm-folderinit ()
   "Initialize folders."
@@ -79,15 +80,6 @@
 	 (format "%s/%s-%s" college-folder-path univ-college-folder-name suffix) 
 	 'recursive)
 	(hcsm-create-files college-folder-path univ-college-folder-name suffix)))))
-
-(defun hcsm-create-files(college-folder-path univ-college-folder-name suffix)
-  "create tex files." ()
-  (cond ((string-match "" suffix) 
-	 (hcsm-ask-if-create-file file-name template-path 1))
-	 ((string-match "" suffix) 
-	 (hcsm-ask-if-create-file file-name template-path 1))
-	 ((string-match "" suffix) 
-	 (hcsm-ask-if-create-file file-name template-path g))))
 
 
 (defun hcsm-create-suffixes(numbers-of-parts numbers-of-questions)
