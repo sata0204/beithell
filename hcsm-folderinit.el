@@ -20,11 +20,11 @@
       (setq numbers-of-questions (hcsm-question-setting))
 
       ;;フォルダ名セット
-      (when (not (boundp hcsm-basepath)) (hcsm-set-basepath)) ;confirm basepath exsistence
+      (when (not (boundp 'hcsm-basepath)) (hcsm-setup)) ;confirm basepath exsistence
       (setq univ-folder-path 
 	    (expand-file-name (format "%s/%s-Nyushi/%s-%s/%s-%s" 
-				      hcsm-basepath school-year school-year ritsu school-year univ-name)))
-      (setq univ-college-folder-name (format "%s-%s-%s" school-year univ-short-name college-name))
+				      hcsm-basepath hcsm-school-year hcsm-school-year ritsu hcsm-school-year univ-name)))
+      (setq univ-college-folder-name (format "%s-%s-%s" hcsm-school-year univ-short-name college-name))
       (setq college-folder-path (format "%s/%s" univ-folder-path univ-college-folder-name))
       ;;フォルダ名の問題番号部分を作成
       (setq suffixes-of-folders 
