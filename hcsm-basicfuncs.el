@@ -52,5 +52,5 @@
 	(hcsm-open-to-kill file-name (lambda ()) nil)))))
 
 (defun hcsm-add-to-list-in-format(listname format-string &rest arg-list)
-  (add-to-list listname (format format-string arg-list)))
+  (add-to-list 'listname (apply 'format format-string arg-list)))
 ;code end

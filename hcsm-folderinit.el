@@ -111,7 +111,7 @@ the function returns a path to the file being saved."
      (progn
        (hcsm-replace "UVS" univ-short-name)
        (hcsm-replace "university" univ-name)
-       (hcsm-replace "daigaku" univ-japanese-name)
+       (hcsm-replace "daigakumei" univ-japanese-name)
        (hcsm-replace "department" college-name)
        (hcsm-replace "gakubu" college-japanese-name)
        (cond 
@@ -123,32 +123,35 @@ the function returns a path to the file being saved."
 
 (defun hcsm-create-matome()
   "create matome file. insert lines into toi/kai/end list, then finally output strings using mapconcat."
-  (let (list-of-toi-texts list-of-kai-texts list-of-end-texts (numbers-of-parts (length numbers-of-questions)))
-    (save-excursion
-      (dotimes (i numbers-of-parts)
-	(if (equal (nth i numbers-of-questions) 0) ;if non questional parts
-	    ;;true: non questional parts
-	    (progn (hcsm-add-to-list-in-format list-of-toi-texts "\\input{../../%s/%s-%s/%s-toi-%s}"
-					       univ-college-folder-name univ-college-folder-name i univ-college-folder-name i)
-		   (hcsm-add-to-list-in-format list-of-kai-texts "\\input{../../%s/%s-%s/%s-kai-%s}" 
-					       univ-college-folder-name univ-college-folder-name i univ-college-folder-name i))
+  (let ((list-of-toi-texts '(""))
+	(list-of-kai-texts '(""))
+	(list-of-end-texts '("")) 
+	(numbers-of-parts (length numbers-of-questions)))
+    (dotimes (i numbers-of-parts)
+      (if (equal (nth i numbers-of-questions) 0) ;if non questional parts
+	  ;;true: non questional parts
+	  (progn (hcsm-add-to-list-in-format 'list-of-toi-texts "\\input{../../%s/%s-%s/%s-toi-%s}"
+					     univ-college-folder-name univ-college-folder-name (+ i 1) univ-college-folder-name (+ i 1))
+		 (hcsm-add-to-list-in-format 'list-of-kai-texts "\\input{../../%s/%s-%s/%s-kai-%s}" 
+					     univ-college-folder-name univ-college-folder-name (+ i 1) univ-college-folder-name (+ i 1)))
 
-	  ;;false: questional parts
-	  (cons "\\begin{reidai}" list-of-toi-texts)
-	  (dotimes (j (nth i numbers-of-questions))
-	    (hcsm-add-to-list-in-format list-of-toi-texts "\\begin{shomonr}\n\\input{../../%s/%s-%s-%s/%s-toi-%s-%s}\\end{shomonr}"
-					univ-college-folder-name univ-college-folder-name i j univ-college-folder-name i j))
-	  (cons "\\end{reidai\\\\b}" list-of-toi-texts)
-	  ;;questional parts end
-	  )
-	(cons "\\vspace{2mm}" list-of-kai-texts)
-	);dotimes i end
+	;;false: questional parts
+	(setq list-of-toi-texts (append '("\\begin{reidai}") list-of-toi-texts))
+	(dotimes (j (nth i numbers-of-questions))
+	  (hcsm-add-to-list-in-format 'list-of-toi-texts "\\begin{shomonr}\n\\input{../../%s/%s-%s-%s/%s-toi-%s-%s}\\end{shomonr}"
+				      univ-college-folder-name univ-college-folder-name (+ i 1) (+ j 1) 
+				      univ-college-folder-name (+ i 1) (+ j 1)))
+	(setq list-of-toi-texts (append '("\\end{reidai\\\\b}") list-of-toi-texts))
+	;;questional parts end
+	)
+      (setq list-of-kai-texts (append '("\\vspace{2mm}") list-of-kai-texts))
+      );dotimes i end
 
-      ;;end folder
-      (hcsm-add-to-list-in-format list-of-end-texts "\\input{../../%s/%s-end/%s-end}"
-				  univ-college-folder-name univ-college-folder-name univ-college-folder-name)
-      
-      (hcsm-replace "\%toi\%" (mapconcat (lambda()) (reverse list-of-toi-texts) "\n"))
-      (hcsm-replace "\%kai\%" (mapconcat (lambda()) (reverse list-of-kai-texts) "\n"))
-      (hcsm-replace "\%end\%" (mapconcat (lambda()) (reverse list-of-end-texts) "\n"))
-      )))
+    ;;end folder
+    (hcsm-add-to-list-in-format 'list-of-end-texts "\\input{../../%s/%s-end/%s-end}"
+				univ-college-folder-name univ-college-folder-name univ-college-folder-name)
+    
+    (hcsm-replace "\%toi\%" (mapconcat (lambda()) (reverse list-of-toi-texts) "\n"))
+    (hcsm-replace "\%kai\%" (mapconcat (lambda()) (reverse list-of-kai-texts) "\n"))
+    (hcsm-replace "\%end\%" (mapconcat (lambda()) (reverse list-of-end-texts) "\n"))
+    ))
