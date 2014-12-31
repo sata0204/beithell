@@ -16,8 +16,8 @@
 (require 'hcsm-setup)
 
 (require 'hcsm-eps-input)
-(require 'hcsm-folderinit)
 (require 'hcsm-fileinit)
+(require 'hcsm-folderinit)
 
 (provide 'hcsm)
 ;; code end
