@@ -6,5 +6,6 @@
 \def\syutten[#1,#2]{}
 
 \begin{document}
-\input{year-UVS-department}
+\input{14-(大学名)-(学部名)}
 \end{document}
+

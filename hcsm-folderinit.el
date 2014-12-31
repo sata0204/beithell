@@ -11,8 +11,10 @@
     (defconst ritsu (hcsm-ask-ritsu))
     (defconst univ-name (capitalize (read-string "大学名をローマ字12文字以内で入力")))
     (defconst univ-short-name (upcase (read-string "大学略称をローマ字で入力")))
+    (defconst univ-japanese-name (read-string "大学名を日本語で入力")) ;temp
     ;;学部設定
     (defconst college-name (hcsm-ask-collage))
+    (defconst college-japanese-name (read-string "学部名を日本語で入力")) ;temp
     ;;大問・小問設定
     (defconst numbers-of-questions (hcsm-question-setting))
 
@@ -83,7 +85,7 @@ suffix / suffix-flag are needed for hcsm-copy-tex-file."
   (hcsm-replace-in-tex-file 
    (if suffix-flag
        (hcsm-copy-tex-file tex-file-path-format template-name suffix suffix-flag)
-     (hcsm-copy-tex-file tex-file-path-format template-name suffix))))
+     (hcsm-copy-tex-file tex-file-path-format template-name suffix) suffix)))
 
 (defun hcsm-copy-tex-file(tex-file-path-format template-name suffix &optional suffix-flag)
   "copy templates and save as proper name. 
@@ -100,12 +102,19 @@ the function returns a path to the file being saved."
     (hcsm-ask-if-create-file path-to-tex-file (format "%s/tex/%s" hcsm-template-path template-name) t)
     path-to-tex-file)) ;return path
 
-(defun hcsm-replace-in-tex-file(path-to-tex-file)
+(defun hcsm-replace-in-tex-file(path-to-tex-file suffix)
   "replace bare .tex file sent from hcsm-copy-tex-file"
   (hcsm-open-to-kill 
    path-to-tex-file 
-    (lambda ()
-      (progn
-	(perform-replace "(大学名)" univ-short-name nil nil nil)
-	(perform-replace "(学部名)" college-name nil nil nil)
-	(perform-replace "(年度)" hcsm-school-year nil nil nil)))))
+   (lambda () 
+     (progn
+       (perform-replace "UVS" univ-short-name nil nil nil)
+       (perform-replace "university" univ-name nil nil nil)
+       (perform-replace "daigaku" univ-japanese-name nil nil nil)
+       (perform-replace "department" college-name nil nil nil)
+       (perform-replace "gakubu" college-japanese-name nil nil nil)
+       (cond 
+	((string-match "[0-9]" suffix)
+	 (perform-replace "daimon-minus-one" (- (match-stging 0) 1) nil nil nil)
+	 (perform-replace "mon-bango" suffix nil nil nil)))))))
+
