@@ -85,7 +85,8 @@ suffix / suffix-flag are needed for hcsm-copy-tex-file."
   (hcsm-replace-in-tex-file 
    (if suffix-flag
        (hcsm-copy-tex-file tex-file-path-format template-name suffix suffix-flag)
-     (hcsm-copy-tex-file tex-file-path-format template-name suffix) suffix)))
+     (hcsm-copy-tex-file tex-file-path-format template-name suffix))
+   suffix))
 
 (defun hcsm-copy-tex-file(tex-file-path-format template-name suffix &optional suffix-flag)
   "copy templates and save as proper name. 
@@ -108,13 +109,20 @@ the function returns a path to the file being saved."
    path-to-tex-file 
    (lambda () 
      (progn
+       (goto-char (point-min))
        (perform-replace "UVS" univ-short-name nil nil nil)
+       (goto-char (point-min))
        (perform-replace "university" univ-name nil nil nil)
+       (goto-char (point-min))
        (perform-replace "daigaku" univ-japanese-name nil nil nil)
+       (goto-char (point-min))
        (perform-replace "department" college-name nil nil nil)
+       (goto-char (point-min))
        (perform-replace "gakubu" college-japanese-name nil nil nil)
        (cond 
 	((string-match "[0-9]" suffix)
-	 (perform-replace "daimon-minus-one" (- (match-stging 0) 1) nil nil nil)
+	 (goto-char (point-min))
+	 (perform-replace "daimon-minus-one" (number-to-string (- (string-to-number (match-string 0 suffix)) 1)) nil nil nil)
+	 (goto-char (point-min))
 	 (perform-replace "mon-bango" suffix nil nil nil)))))))
 
