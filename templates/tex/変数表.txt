@@ -1,7 +1,7 @@
-UVS ‘åŠw–¼—ªÌ
-university ‘åŠw–¼‰pŒê•\‹L
-daigaku ‘åŠw–¼“ú–{Œê•\‹L(u‘åŠwvŠÜ‚ß‚¸)
-department Šw•”–¼‰pŒê•\‹L
-gakubu Šw•”–¼“ú–{Œê•\‹L(uŠw•”vŠÜ‚ß‚¸)
-daimon-minus-one ‘å–â”Ô†-1‚Ì’l
-mon-bango –â‘è”Ô†(3A1-2‚È‚Ç)
+UVS å¤§å­¦åç•¥ç§°
+university å¤§å­¦åè‹±èªè¡¨è¨˜
+daigaku å¤§å­¦åæ—¥æœ¬èªè¡¨è¨˜(ã€Œå¤§å­¦ã€å«ã‚ãš)
+department å­¦éƒ¨åè‹±èªè¡¨è¨˜
+gakubu å­¦éƒ¨åæ—¥æœ¬èªè¡¨è¨˜(ã€Œå­¦éƒ¨ã€å«ã‚ãš)
+daimon-minus-one å¤§å•ç•ªå·-1ã®å€¤
+mon-bango å•é¡Œç•ªå·(3ã€1-2ãªã©)

@@ -13,11 +13,12 @@
 ;;; Code:
 (require 'hcsm-basicfuncs)
 (require 'hcsm-var-settings)
+(require 'hcsm-key-settings)
 (require 'hcsm-setup)
 
 (require 'hcsm-eps-input)
 (require 'hcsm-folderinit)
-(require 'hcsm-fileinit)
+(require 'hcsm-folderinit-setting-funcs)
 
 (provide 'hcsm)
 ;; code end

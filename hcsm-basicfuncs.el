@@ -14,10 +14,12 @@
   (while (re-search-forward regexp nil t)
     (replace-match to-string)))
 
-(defun hcsm-open-to-kill (file function argument-list)
+(defun hcsm-open-to-kill (file function &optional argument-list)
   "fileを開き，functionを実行後保存し消す"
   (with-current-buffer (find-file-noselect file)
-    (apply function argument-list)
+    (if argument-list
+	(apply function argument-list)
+      (apply function nil))
     (save-buffer)
     (kill-buffer)))
 
@@ -41,10 +43,10 @@
   (unless (file-directory-p path-to-dir)
     (make-directory path-to-dir 'recursive)))
 
-(defun hcsm-ask-if-create-file (file-name &optional template-path)
+(defun hcsm-ask-if-create-file (file-name &optional template-path force-flag)
   "when `file-name` doesn't exists, ask if create it. you can use template."
   (unless (file-exists-p file-name)
-    (when (y-or-n-p (format "%sを作成しますか?" file-name))
+    (when (if force-flag t (y-or-n-p (format "%sを作成しますか?" file-name)))
       (if template-path
 	  (hcsm-open-to-kill file-name (lambda () (insert-file-contents template-path)) nil)
 	(hcsm-open-to-kill file-name (lambda ()) nil)))))

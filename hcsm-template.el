@@ -1,4 +1,4 @@
-;; -*- coding: utf-8 -*-
+;;; -*- coding: utf-8; lexical-binding: t -*-
 (provide 'hcsm-funcname)
 (require 'hcsm-basicfuncs)
 (defun 'hcsm-funcname()

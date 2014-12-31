@@ -1,125 +1,128 @@
+;;; -*- coding: utf-8; lexical-binding: t -*-
 (provide 'hcsm-folderinit)
 (require 'hcsm-basicfuncs)
+(require 'hcsm-folderinit-setting-funcs)
 
 (defun hcsm-folderinit ()
   "Initialize folders."
   (interactive)
-  (let (;;local variables
-	ritsu univ-name univ-short-name college-name 
-	      numbers-of-questions univ-folder-path univ-college-folder-name
-	      college-folder-path suffixes-of-folders
-	      )
-    (save-excursion
-      ;;大学基本設定
-      (setq ritsu (hcsm-ask-ritsu))
-      (hcsm-set-string-var 'univ-name "大学名をローマ字12文字以内で入力" 'capitalize)
-      (hcsm-set-string-var 'univ-short-name "大学略称をローマ字で入力" 'upcase)
-      ;;学部設定
-      (setq college-name (hcsm-ask-collage))
-      ;;大問・小問設定
-      (setq numbers-of-questions (hcsm-question-setting))
+  (save-excursion
+    ;;大学基本設定
+    (defconst ritsu (hcsm-ask-ritsu))
+    (defconst univ-name (capitalize (read-string "大学名をローマ字12文字以内で入力")))
+    (defconst univ-short-name (upcase (read-string "大学略称をローマ字で入力")))
+    (defconst univ-japanese-name (read-string "大学名を日本語で入力")) ;temp
+    ;;学部設定
+    (defconst college-name (hcsm-ask-collage))
+    (defconst college-japanese-name (read-string "学部名を日本語で入力")) ;temp
+    ;;大問・小問設定
+    (defconst numbers-of-questions (hcsm-question-setting))
 
-      ;;フォルダ名セット
-      (defvar hcsm-basepath nil)
-      (when (eq hcsm-basepath nil) (hcsm-set-basepath)) ;confirm basepath exsistence
-      (setq univ-folder-path 
-	    (expand-file-name (format "%s/14-Nyushi/14-%s/14-%s" 
-				      hcsm-basepath ritsu univ-name)))
-      (setq univ-college-folder-name (format "14-%s-%s" univ-short-name college-name))
-      (setq college-folder-path (format "%s/%s" univ-folder-path univ-college-folder-name))
-      ;;フォルダ名の問題番号部分を作成
-      (setq suffixes-of-folders 
-	    (hcsm-create-suffixes (length numbers-of-questions) numbers-of-questions))
+    ;;フォルダ名セット
+    (when (not (boundp 'hcsm-TEX-Genkou-path)) (hcsm-setup)) ;confirm TEX-Genkou-path exsistence
+    (defconst univ-folder-path 
+      (expand-file-name (format "%s/%s-Nyushi/%s-%s/%s-%s" 
+				hcsm-TEX-Genkou-path hcsm-school-year hcsm-school-year ritsu hcsm-school-year univ-name)))
+    (defconst univ-college-folder-name (format "%s-%s-%s" hcsm-school-year univ-short-name college-name))
+    (defconst college-folder-path (format "%s/%s" univ-folder-path univ-college-folder-name))
+    ;;フォルダ名の問題番号部分を作成
+    (defconst list-of-suffixes
+      (hcsm-create-suffixes (length numbers-of-questions) numbers-of-questions))
 
-      ;;フォルダ実作成
-      (hcsm-create-folders suffixes-of-folders college-folder-path univ-college-folder-name)
-      ) ;save-excursion
-    ) ;let
+    ;;フォルダ実作成
+    (hcsm-create-tex)
+    ) ;save-excursion
   );defun
 
-(defun hcsm-ask-ritsu()
-  "nani ritsu daigaku?" ()
-  (let (ritsu)
-    (save-excursion
-      (hcsm-set-string-var 'ritsu "国立大なら1を、私立大なら2を入力" 'string-to-number)
-      (cond ((equal ritsu 1) (setq ritsu "kokuritsu"))
-	    ((equal ritsu 2) (setq ritsu "shiritsu"))
-	    (t (error "なに立大学か不明。"))
-	    )
-      ritsu)))
-
-(defun hcsm-ask-collage()
-  "nani gakubu?" ()
-  (let (has-only-college college-option college-name)
-    (save-excursion
-      (hcsm-set-string-var 'has-only-college 
-			   "単学部なら1を、そうでないなら2を入力" 'string-to-number)
-      (cond 
-       ((equal has-only-college 1) 
-	(progn 
-	  (hcsm-set-string-var 
-	   'college-option "前期なら1、中期なら2、後期なら3、医学部のみなら4を入力" 
-	   'string-to-number)
-	  (cond
-	   ((equal college-option 1) (setq college-name "zen"))
-	   ((equal college-option 2) (setq college-name "chu"))
-	   ((equal college-option 3) (setq college-name "ko"))
-	   ((equal college-option 4) (setq college-name "i"))
-	   (t (error "何期大学か不明。")))));cond=1 end
-       ((equal has-only-college 2) 
-	(hcsm-set-string-var 'college-name ;use concat only for code indent
-			     (concat "学部名を10字以内のローマ字で入力\n"  
-				     "学科名は-で繋ぐこと\n" 
-				     "(例：ri-oubutsu)") 'downcase));cond=2 end
-       (t (error "何学部か不明。")));cond end
-      )))
-
-(defun hcsm-question-setting()
-  "return list `numbers of questions`. numbers-of-parts is equal to its length." ()
-  (let (numbers-of-parts parts-consist-of-questions numbers-of-questions)
-    ;;大問設定
-    (hcsm-set-string-var 'numbers-of-parts "大問数を入力" 'string-to-number)
-    (setq parts-consist-of-questions
-	  (split-string 
-	   (hcsm-set-string-var 'parts-consist-of-questions 
-				"小問集合問題である大問を入力\n半角数字、半角スペース区切り")))
-    (setq parts-consist-of-questions ;リストの要素を文字から数字リテラルに変換
-	  (mapcar #'string-to-number parts-consist-of-questions))
-    ;;小問設定
-    (let ((i 0))
-      (while (< i numbers-of-parts)
-	(progn 
-	  (push ;push (True:ask False:0) into numbers-of-questions
-	   (if (member (+ i 1) parts-consist-of-questions) 
-	       (string-to-number (read-string (format "大問%dの小問数を入力" (+ i 1)))) 0) 
-	   numbers-of-questions)
-	  (setq i (+ i 1))
-	  )));progn, while, let
-    (setq numbers-of-questions (reverse numbers-of-questions))
-    ))
-
-(defun hcsm-create-folders(list-of-suffixes college-folder-path univ-college-folder-name)
-  "create tex folders." ()
+(defun hcsm-create-tex()
+  "create tex folders."
   (let (suffix)
     (dolist (suffix list-of-suffixes)
-      (make-directory 
-       (format "%s/%s-%s" college-folder-path univ-college-folder-name suffix) 
-       'recursive))))
+      (progn (hcsm-create-tex-folders suffix) (hcsm-create-tex-files suffix)))))
 
-(defun hcsm-create-suffixes(numbers-of-parts numbers-of-questions)
-  "create list of suffixes about parts and questions." ()
-  (let (suffixes-of-folders)
-    (save-excursion
-      (setq suffixes-of-folders nil)
-      (let  ((i 1))
-	(while (<= i numbers-of-parts)
-	  (if (equal (nth (- i 1) numbers-of-questions) 0) 
-	      (add-to-list 'suffixes-of-folders (format "%d" i))
-	    (let ((j 1))
-	      (while (<= j (nth (- i 1) numbers-of-questions))
-		(add-to-list 'suffixes-of-folders (format "%d-%d" i j))
-		(setq j (+ j 1)))));let j, if end
-	  (setq i (+ i 1))));loop end
-      (add-to-list 'suffixes-of-folders "end")
-      (add-to-list 'suffixes-of-folders "matome")
-      suffixes-of-folders)))
+(defun hcsm-create-tex-folders(suffix)
+  "manage all about creating directories for .tex files."
+  (make-directory (format "%s/%s-%s" college-folder-path univ-college-folder-name suffix) 'recursive))
+
+(defun hcsm-create-tex-files(suffix)
+  "manage all about creating .tex files."
+  (let (format-list template-list)
+    (cond 
+     ;;about parts/questions
+     ((string-match "[0-9]" suffix)
+      ;;formats are common in all parts
+      (setq format-list '("%s/%s-%s/%s-toi-%s.tex" "%s/%s-%s/%s-kai-%s.tex" "%s/%s-%s/%s-%s-kakunin.tex"))
+      ;;templates are different
+      (setq template-list '("year-univ-toi-2.tex" "year-univ-kai-1-1.tex" "year-univ-2-kakunin.tex"))
+      (when (string-match "-" suffix)
+	(setq template-list '("year-univ-toi-1-1.tex" "year-univ-kai-1-2.tex" "year-univ-1-1-kakunin.tex"))
+	(when (string-match "-1" suffix) 
+	  (setq template-list '("year-univ-toi-1-1.tex" "year-univ-kai-1-1.tex" "year-univ-1-1-kakunin.tex"))))
+      (hcsm-initialize-tex-files format-list template-list suffix t))
+     ;;create files
+     ;;about matome
+     ((string-match "matome" suffix)
+      (setq format-list '("%s/%s-%s/%s.tex" "%s/%s-%s/%s-kakunin.tex"))
+      (setq template-list '("year-univ.tex" "year-univ-kakunin.tex"))
+      (hcsm-initialize-tex-files format-list template-list suffix))
+     ;;about end
+     ((string-match "end" suffix)
+      (setq format-list '("%s/%s-%s/%s-end.tex"))
+      (setq template-list '("year-univ-end.tex"))
+      (hcsm-initialize-tex-files format-list template-list suffix)))))
+
+;;this sub-routine is for hcsm-copy-tex-files only.
+(defun hcsm-initialize-tex-files(format-list template-list suffix &optional suffix-flag)
+  "extract format-list / template-list. 
+suffix / suffix-flag are needed for hcsm-copy-tex-file."
+  (if suffix-flag
+      (let (i) (dotimes (i (length format-list)) (hcsm-initialize-tex-file (nth i format-list) (nth i template-list) suffix t)))
+    (let (i) (dotimes (i (length format-list)) (hcsm-initialize-tex-file (nth i format-list) (nth i template-list) suffix)))))
+
+(defun hcsm-initialize-tex-file(tex-file-path-format template-name suffix &optional suffix-flag)
+  "(1)copy .tex template -> (2)replace its contents properly. 
+suffix / suffix-flag are needed for hcsm-copy-tex-file."
+  (hcsm-replace-in-tex-file 
+   (if suffix-flag
+       (hcsm-copy-tex-file tex-file-path-format template-name suffix suffix-flag)
+     (hcsm-copy-tex-file tex-file-path-format template-name suffix))
+   suffix))
+
+(defun hcsm-copy-tex-file(tex-file-path-format template-name suffix &optional suffix-flag)
+  "copy templates and save as proper name. 
+the function returns a path to the file being saved."
+  (let (path-to-tex-file)
+    (if suffix-flag  
+	;;t   : %s * 5, about parts
+	;;nil : %s * 4, about others
+	(setq path-to-tex-file 
+	      (format tex-file-path-format college-folder-path univ-college-folder-name suffix univ-college-folder-name suffix))
+      (setq path-to-tex-file 
+	    (format tex-file-path-format college-folder-path univ-college-folder-name suffix univ-college-folder-name)))
+    ;;create `path-to-tex-file`
+    (hcsm-ask-if-create-file path-to-tex-file (format "%s/tex/%s" hcsm-template-path template-name) t)
+    path-to-tex-file)) ;return path
+
+(defun hcsm-replace-in-tex-file(path-to-tex-file suffix)
+  "replace bare .tex file sent from hcsm-copy-tex-file"
+  (hcsm-open-to-kill 
+   path-to-tex-file 
+   (lambda () 
+     (progn
+       (goto-char (point-min))
+       (perform-replace "UVS" univ-short-name nil nil nil)
+       (goto-char (point-min))
+       (perform-replace "university" univ-name nil nil nil)
+       (goto-char (point-min))
+       (perform-replace "daigaku" univ-japanese-name nil nil nil)
+       (goto-char (point-min))
+       (perform-replace "department" college-name nil nil nil)
+       (goto-char (point-min))
+       (perform-replace "gakubu" college-japanese-name nil nil nil)
+       (cond 
+	((string-match "[0-9]" suffix)
+	 (goto-char (point-min))
+	 (perform-replace "daimon-minus-one" (number-to-string (- (string-to-number (match-string 0 suffix)) 1)) nil nil nil)
+	 (goto-char (point-min))
+	 (perform-replace "mon-bango" suffix nil nil nil)))))))
+
