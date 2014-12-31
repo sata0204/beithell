@@ -51,5 +51,3 @@
 	  (hcsm-open-to-kill file-name (lambda () (insert-file-contents template-path)) nil)
 	(hcsm-open-to-kill file-name (lambda ()) nil)))))
 ;code end
-
-(hcsm-ask-if-create-file "hoge")

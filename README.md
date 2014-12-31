@@ -16,10 +16,8 @@ Provide some functions to set your var-settings up.
 Provide `hcsm-folderinit`.
 It asks (univ/college/parts/questions/something other) 
 and create folders related to them.
-###hcsm-initializer.el (under construction)
-initialize folders.
-`hcsm-create-files` copies appropriate template and save its copy as proper form.
-it search for templates in hocsom/templates/tex/* by default.
+### hcsm-folderinit-setting-functions.el
+might called only by folderinit.
 
 
 ## hcsm-var-settings.el
