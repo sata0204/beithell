@@ -14,10 +14,12 @@
   (while (re-search-forward regexp nil t)
     (replace-match to-string)))
 
-(defun hcsm-open-to-kill (file function argument-list)
+(defun hcsm-open-to-kill (file function &optional argument-list)
   "fileを開き，functionを実行後保存し消す"
   (with-current-buffer (find-file-noselect file)
-    (apply function argument-list)
+    (if argument-list
+	(apply function argument-list)
+      (apply function))
     (save-buffer)
     (kill-buffer)))
 
