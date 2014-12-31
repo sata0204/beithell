@@ -123,33 +123,33 @@ the function returns a path to the file being saved."
 
 (defun hcsm-create-matome()
   "create matome file. insert lines into toi/kai/end list, then finally output strings using mapconcat."
-  (let ((list-of-toi-texts '(""))
-	(list-of-kai-texts '(""))
-	(list-of-end-texts '("")) 
-	(numbers-of-parts (length numbers-of-questions)))
+  (let ((numbers-of-parts (length numbers-of-questions)) toi-text-lists kai-text-lists end-text-lists)
     (dotimes (i numbers-of-parts)
       (if (equal (nth i numbers-of-questions) 0) ;if non questional parts
 	  ;;true: non questional parts
-	  (progn (hcsm-add-to-list-in-format 'list-of-toi-texts "\\input{../../%s/%s-%s/%s-toi-%s}"
-					     univ-college-folder-name univ-college-folder-name (+ i 1) univ-college-folder-name (+ i 1))
-		 (hcsm-add-to-list-in-format 'list-of-kai-texts "\\input{../../%s/%s-%s/%s-kai-%s}" 
-					     univ-college-folder-name univ-college-folder-name (+ i 1) univ-college-folder-name (+ i 1)))
+	  (progn 
+	    (add-to-list 'toi-text-lists 
+			 (format "\\input{../../%s/%s-%s/%s-toi-%s}" univ-college-folder-name 
+				 univ-college-folder-name (+ i 1) univ-college-folder-name (+ i 1)))
+	    (add-to-list 'kai-text-lists 
+			 (format "\\input{../../%s/%s-%s/%s-kai-%s}" univ-college-folder-name 
+				 univ-college-folder-name (+ i 1) univ-college-folder-name (+ i 1))))
 
 	;;false: questional parts
-	(setq list-of-toi-texts (append '("\\begin{reidai}") list-of-toi-texts))
+	(add-to-list 'toi-text-lists "\\begin{reidai}")
 	(dotimes (j (nth i numbers-of-questions))
-	  (hcsm-add-to-list-in-format 'list-of-toi-texts "\\begin{shomonr}\n\\input{../../%s/%s-%s-%s/%s-toi-%s-%s}\\end{shomonr}"
-				      univ-college-folder-name univ-college-folder-name (+ i 1) (+ j 1) 
-				      univ-college-folder-name (+ i 1) (+ j 1)))
-	(setq list-of-toi-texts (append '("\\end{reidai\\\\b}") list-of-toi-texts))
+	  (add-to-list 'toi-text-lists (format "\\begin{shomonr}\n\\input{../../%s/%s-%s-%s/%s-toi-%s-%s}\\end{shomonr}"
+					       univ-college-folder-name univ-college-folder-name (+ i 1) (+ j 1) 
+					       univ-college-folder-name (+ i 1) (+ j 1))))
+	(add-to-list 'toi-text-lists "\\end{reidai\\\\b}")
 	;;questional parts end
 	)
-      (setq list-of-kai-texts (append '("\\vspace{2mm}") list-of-kai-texts))
+      (add-to-list `kai-text-lists "\\vspace{2mm}")
       );dotimes i end
 
     ;;end folder
-    (hcsm-add-to-list-in-format 'list-of-end-texts "\\input{../../%s/%s-end/%s-end}"
-				univ-college-folder-name univ-college-folder-name univ-college-folder-name)
+    (add-to-list 'end-text-lists (format "\\input{../../%s/%s-end/%s-end}"
+					 univ-college-folder-name univ-college-folder-name univ-college-folder-name))
     
     (hcsm-replace "\%toi\%" (mapconcat (lambda()) (reverse list-of-toi-texts) "\n"))
     (hcsm-replace "\%kai\%" (mapconcat (lambda()) (reverse list-of-kai-texts) "\n"))
