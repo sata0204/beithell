@@ -32,10 +32,11 @@
 	    (hcsm-create-suffixes (length numbers-of-questions) numbers-of-questions))
 
       ;;フォルダ実作成
-      (hcsm-create-folders suffixes-of-folders college-folder-path univ-college-folder-name)
+      (hcsm-create-folders suffixes-of-folders college-folder-path univ-college-folder-name 
+			   univ-short-name college-name)
       ) ;save-excursion
     ) ;let
-  );defun
+ );defun
 
 (defun hcsm-ask-ritsu()
   "nani ritsu daigaku?" ()
@@ -71,7 +72,7 @@
     (reverse numbers-of-questions)
     ))
 
-(defun hcsm-create-folders(list-of-suffixes college-folder-path univ-college-folder-name)
+(defun hcsm-create-folders(list-of-suffixes college-folder-path univ-college-folder-name univ-short-name college-name)
   "create tex folders." ()
   (let (suffix)
     (dolist (suffix list-of-suffixes)
@@ -79,7 +80,7 @@
 	(make-directory 
 	 (format "%s/%s-%s" college-folder-path univ-college-folder-name suffix) 
 	 'recursive)
-	(hcsm-create-files college-folder-path univ-college-folder-name suffix)))))
+	(hcsm-create-tex-files college-folder-path univ-college-folder-name suffix univ-short-name college-name)))))
 
 
 (defun hcsm-create-suffixes(numbers-of-parts numbers-of-questions)
