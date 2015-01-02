@@ -115,6 +115,7 @@ the function returns a path to the file being saved."
        (hcsm-replace "daigakumei" univ-japanese-name)
        (hcsm-replace "department" college-name)
        (hcsm-replace "gakubu" college-japanese-name)
+       (hcsm-replace "year" hcsm-school-year)
        (cond 
 	((string-match "[0-9]" suffix)
 	 (hcsm-replace "daimon-minus-one" (number-to-string (- (string-to-number (match-string 0 suffix)) 1)))
