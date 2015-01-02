@@ -24,7 +24,9 @@
 	;;false: questional parts
 	(add-to-list 'toi-text-lists "\\\\begin{reidai}")
 	(dotimes (j (nth i numbers-of-questions))
-	  (add-to-list 'toi-text-lists (format "\\\\begin{shomonr}\\n\\\\input{../../%s/%s-%s-%s/%s-toi-%s-%s}\\\\end{shomonr}"
+	  (add-to-list 'toi-text-lists (format "\\\\begin{shomonr}
+\\\\input{../../%s/%s-%s-%s/%s-toi-%s-%s}
+\\\\end{shomonr}"
 					       univ-college-folder-name univ-college-folder-name (+ i 1) (+ j 1) 
 					       univ-college-folder-name (+ i 1) (+ j 1))))
 	(add-to-list 'toi-text-lists "\\\\end{reidai\\\\\\\\b}")
@@ -37,7 +39,11 @@
     (add-to-list 'end-text-lists (format "\\\\input{../../%s/%s-end/%s-end}"
 					 univ-college-folder-name univ-college-folder-name univ-college-folder-name))
     
-    (hcsm-replace "\%toi\%" (mapconcat 'identity (reverse toi-text-lists) "\n"))
-    (hcsm-replace "\%kai\%" (mapconcat 'identity (reverse kai-text-lists) "\n"))
-    (hcsm-replace "\%end\%" (mapconcat 'identity (reverse end-text-lists) "\n"))
+    (hcsm-replace "%toi%" (mapconcat 'identity (reverse toi-text-lists) "
+"))
+    (hcsm-replace "%kai%" (mapconcat 'identity (reverse kai-text-lists) "
+"))
+    (hcsm-replace "%end%" (mapconcat 'identity (reverse end-text-lists) "
+"))
     ))
+
