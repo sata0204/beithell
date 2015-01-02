@@ -2,6 +2,7 @@
 (provide 'hcsm-folderinit)
 (require 'hcsm-basicfuncs)
 (require 'hcsm-folderinit-setting-funcs)
+(require 'hcsm-folderinit-create-matome)
 
 (defun hcsm-folderinit ()
   "Initialize folders."
@@ -120,38 +121,4 @@ the function returns a path to the file being saved."
 	 (hcsm-replace "mon-bango" suffix))
 	((string-match "matome" suffix)
 	 (hcsm-create-matome)))))))
-
-(defun hcsm-create-matome()
-  "create matome file. insert lines into toi/kai/end list, then finally output strings using mapconcat."
-  (let ((numbers-of-parts (length numbers-of-questions)) toi-text-lists kai-text-lists end-text-lists)
-    (dotimes (i numbers-of-parts)
-      (if (equal (nth i numbers-of-questions) 0) ;if non questional parts
-	  ;;true: non questional parts
-	  (progn 
-	    (add-to-list 'toi-text-lists 
-			 (format "\\input{../../%s/%s-%s/%s-toi-%s}" univ-college-folder-name 
-				 univ-college-folder-name (+ i 1) univ-college-folder-name (+ i 1)))
-	    (add-to-list 'kai-text-lists 
-			 (format "\\input{../../%s/%s-%s/%s-kai-%s}" univ-college-folder-name 
-				 univ-college-folder-name (+ i 1) univ-college-folder-name (+ i 1))))
-
-	;;false: questional parts
-	(add-to-list 'toi-text-lists "\\begin{reidai}")
-	(dotimes (j (nth i numbers-of-questions))
-	  (add-to-list 'toi-text-lists (format "\\begin{shomonr}\n\\input{../../%s/%s-%s-%s/%s-toi-%s-%s}\\end{shomonr}"
-					       univ-college-folder-name univ-college-folder-name (+ i 1) (+ j 1) 
-					       univ-college-folder-name (+ i 1) (+ j 1))))
-	(add-to-list 'toi-text-lists "\\end{reidai\\\\b}")
-	;;questional parts end
-	)
-      (add-to-list `kai-text-lists "\\vspace{2mm}")
-      );dotimes i end
-
-    ;;end folder
-    (add-to-list 'end-text-lists (format "\\input{../../%s/%s-end/%s-end}"
-					 univ-college-folder-name univ-college-folder-name univ-college-folder-name))
-    
-    (hcsm-replace "\%toi\%" (mapconcat (lambda()) (reverse list-of-toi-texts) "\n"))
-    (hcsm-replace "\%kai\%" (mapconcat (lambda()) (reverse list-of-kai-texts) "\n"))
-    (hcsm-replace "\%end\%" (mapconcat (lambda()) (reverse list-of-end-texts) "\n"))
-    ))
+;code end
