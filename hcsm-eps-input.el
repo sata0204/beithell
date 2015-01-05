@@ -10,9 +10,5 @@
   ;;the template should be in ~/.emacs.d/hcsm/templates/hcsm-empty.eps
   ;; -> temp coding. should be fixed
   (hcsm-ask-if-create-file (format "%s-%s.eps" (file-name-sans-extension (buffer-file-name)) number) "~/.emacs.d/hocsom/templates/hcsm-empty.eps")
-<<<<<<< HEAD
   (insert (format "\\includegraphics[width=3.5cm]{../../../../../../TEX-Genkou/%s-%s}" (file-name-sans-extension (file-relative-name buffer-file-name hcsm-TEX-Genkou-path)) number)))
-=======
-  (insert (format "\\includegraphics[width=3.5cm]{../../../../../../%s-%s}" (file-name-sans-extension (file-relative-name buffer-file-name hcsm-TEX-Genkou-path)) number)))
->>>>>>> remotes/upstream/fileinit
 ;;code end
