@@ -14,20 +14,24 @@
       (if (equal (nth i numbers-of-questions) 0) ;if non questional parts
 	  ;;true: non questional parts
 	  (progn 
+	    ;;-;;;;;;;;;;;;;;;;;;;;;
+	    ;;temp coding!!!;;;;;;;;
+	    ;;should be refactored;;
+	    ;;-;;;;;;;;;;;;;;;;;;;;;
 	    (add-to-list 'toi-text-lists 
-			 (format "\\\\input{../../%s/%s-%s/%s-toi-%s}" univ-college-folder-name 
+			 (format "\\\\input{../../../../%s%s-%s/%s-toi-%s}" (file-name-directory (file-relative-name college-folder-path hcsm-TEX-Genkou-path)) 
 				 univ-college-folder-name (+ i 1) univ-college-folder-name (+ i 1)))
 	    (add-to-list 'kai-text-lists 
-			 (format "\\\\input{../../%s/%s-%s/%s-kai-%s}" univ-college-folder-name 
+			 (format "\\\\input{../../../../%s%s-%s/%s-kai-%s}" (file-name-directory (file-relative-name college-folder-path hcsm-TEX-Genkou-path)) 
 				 univ-college-folder-name (+ i 1) univ-college-folder-name (+ i 1))))
 
 	;;false: questional parts
 	(add-to-list 'toi-text-lists "\\\\begin{reidai}")
 	(dotimes (j (nth i numbers-of-questions))
 	  (add-to-list 'toi-text-lists (format "\\\\begin{shomonr}
-\\\\input{../../%s/%s-%s-%s/%s-toi-%s-%s}
+\\\\input{../../../../%s%s-%s-%s/%s-toi-%s-%s}
 \\\\end{shomonr}"
-					       univ-college-folder-name univ-college-folder-name (+ i 1) (+ j 1) 
+					       (file-name-directory (file-relative-name college-folder-path hcsm-TEX-Genkou-path)) univ-college-folder-name (+ i 1) (+ j 1) 
 					       univ-college-folder-name (+ i 1) (+ j 1))))
 	(add-to-list 'toi-text-lists "\\\\end{reidai\\\\\\\\b}")
 	;;questional parts end
@@ -36,8 +40,8 @@
       );dotimes i end
 
     ;;end folder
-    (add-to-list 'end-text-lists (format "\\\\input{../../%s/%s-end/%s-end}"
-					 univ-college-folder-name univ-college-folder-name univ-college-folder-name))
+    (add-to-list 'end-text-lists (format "\\\\input{../../../../%s%s-end/%s-end}"
+					 (file-name-directory (file-relative-name college-folder-path hcsm-TEX-Genkou-path)) univ-college-folder-name univ-college-folder-name))
     
     (hcsm-replace "%toi%" (mapconcat 'identity (reverse toi-text-lists) "
 "))
@@ -46,4 +50,3 @@
     (hcsm-replace "%end%" (mapconcat 'identity (reverse end-text-lists) "
 "))
     ))
-
