@@ -48,6 +48,6 @@
   (unless (file-exists-p file-name)
     (when (if force-flag t (y-or-n-p (format "%sを作成しますか?" file-name)))
       (if template-path
-	  (hcsm-open-to-kill file-name (lambda () (insert-file-contents template-path)) nil)
+	  (copy-file template-path file-name)
 	(hcsm-open-to-kill file-name (lambda ()) nil)))))
 ;code end
