@@ -17,10 +17,8 @@
 (require 'hcsm-setup)
 
 (require 'hcsm-eps-input)
-
 (require 'hcsm-folderinit)
 (require 'hcsm-folderinit-setting-funcs)
-(require 'hcsm-folderinit-create-matome)
 
 (provide 'hcsm)
 ;; code end
