@@ -2,6 +2,7 @@
 (provide 'hcsm-folderinit)
 (require 'hcsm-basicfuncs)
 (require 'hcsm-folderinit-setting-funcs)
+(require 'hcsm-folderinit-create-matome)
 
 (defun hcsm-folderinit ()
   "Initialize folders."
@@ -109,20 +110,16 @@ the function returns a path to the file being saved."
    path-to-tex-file 
    (lambda () 
      (progn
-       (goto-char (point-min))
-       (perform-replace "UVS" univ-short-name nil nil nil)
-       (goto-char (point-min))
-       (perform-replace "university" univ-name nil nil nil)
-       (goto-char (point-min))
-       (perform-replace "daigaku" univ-japanese-name nil nil nil)
-       (goto-char (point-min))
-       (perform-replace "department" college-name nil nil nil)
-       (goto-char (point-min))
-       (perform-replace "gakubu" college-japanese-name nil nil nil)
+       (hcsm-replace "UVS" univ-short-name)
+       (hcsm-replace "university" univ-name)
+       (hcsm-replace "daigakumei" univ-japanese-name)
+       (hcsm-replace "department" college-name)
+       (hcsm-replace "gakubu" college-japanese-name)
+       (hcsm-replace "year" hcsm-school-year)
        (cond 
 	((string-match "[0-9]" suffix)
-	 (goto-char (point-min))
-	 (perform-replace "daimon-minus-one" (number-to-string (- (string-to-number (match-string 0 suffix)) 1)) nil nil nil)
-	 (goto-char (point-min))
-	 (perform-replace "mon-bango" suffix nil nil nil)))))))
-
+	 (hcsm-replace "daimon-minus-one" (number-to-string (- (string-to-number (match-string 0 suffix)) 1)))
+	 (hcsm-replace "mon-bango" suffix))
+	((string-match "matome" suffix)
+	 (hcsm-create-matome)))))))
+;code end
