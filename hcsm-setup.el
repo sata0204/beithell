@@ -34,7 +34,7 @@
     (defvar hcsm-TEX-Genkou-path) ;hcsm-TEX-Genkou-path should be void If you run the func.
     (let (correct-path-flag)
       (while (not correct-path-flag)
-	(setq hcsm-TEX-Genkou-path (format "%sTEX-Genkou" (read-directory-name "TEX-Genkouの存在するパスを入力\n例：C:\\work\\TEX-Genkou\\14-Nyushi\\...なら\nC:/work/ :\n例：~/work/TEX-Genkou/14-Nyushi/...なら\n~/work/ ")))
+	(setq hcsm-TEX-Genkou-path (format "%sTEX-Genkou" (read-directory-name "TEX-Genkouの存在するパス(フォルダの位置)を入力\n例：C:\\work\\TEX-Genkou\\(年度)-Nyushi\\...なら\nC:/work/ :\n例：~/work/TEX-Genkou/(年度)-Nyushi/...なら\n~/work/ ")))
 	(setq correct-path-flag
 	      (y-or-n-p (format "TEX-Genkouのパスは%sですか？" hcsm-TEX-Genkou-path))))
 	hcsm-TEX-Genkou-path ;return it
