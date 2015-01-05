@@ -54,7 +54,7 @@
       ;;formats are common in all parts
       (setq format-list '("%s/%s-%s/%s-toi-%s.tex" "%s/%s-%s/%s-kai-%s.tex" "%s/%s-%s/%s-%s-kakunin.tex"))
       ;;templates are different
-      (setq template-list '("year-univ-toi-2.tex" "year-univ-kai-1-1.tex" "year-univ-2-kakunin.tex"))
+      (setq template-list '("year-univ-toi-2.tex" "year-univ-kai-2.tex" "year-univ-2-kakunin.tex"))
       (when (string-match "-" suffix)
 	(setq template-list '("year-univ-toi-1-1.tex" "year-univ-kai-1-2.tex" "year-univ-1-1-kakunin.tex"))
 	(when (string-match "-1" suffix) 
