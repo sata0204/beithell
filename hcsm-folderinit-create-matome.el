@@ -33,7 +33,7 @@
 \\\\end{shomonr}"
 					       (file-name-directory (file-relative-name college-folder-path hcsm-TEX-Genkou-path)) univ-college-folder-name (+ i 1) (+ j 1) 
 					       univ-college-folder-name (+ i 1) (+ j 1))))
-	(add-to-list 'toi-text-lists "\\\\end{reidai\\\\\\\\b}")
+	(add-to-list 'toi-text-lists "\\\\end{reidai}")
 	;;questional parts end
 	)
       (add-to-list `kai-text-lists "\\\\vspace{2mm}")
