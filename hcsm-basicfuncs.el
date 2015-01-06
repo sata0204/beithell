@@ -32,7 +32,7 @@
 
 (defun hcsm-write-defvar (var-name value)
   "カレントバッファの変数を追加する"
-  (save-excursion
+  (progn
     (goto-line (point-max))
     (insert (format "(defvar %s \"%s\")" var-name value))))
 ;;same as hcsm-overwrite-defvar
