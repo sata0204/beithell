@@ -4,22 +4,22 @@
   "nani ritsu daigaku?" ()
   (let (ritsu)
     (save-excursion
-      (hcsm-set-string-var 'ritsu "国立大なら1を、私立大なら2を入力" 'string-to-number)
+      (hcsm-set-string-var 'ritsu "国立大なら1を、私立大なら2を入力: " 'string-to-number)
       (cond ((equal ritsu 1) (setq ritsu "kokuritsu"))
 	    ((equal ritsu 2) (setq ritsu "shiritsu"))
 	    (t (error "なに立大学か不明。"))))))
 
 (defun hcsm-ask-collage()
   "nani gakubu?" ()
-    (downcase (read-string "学部名を10字以内のローマ字で入力\n学科名は-で繋ぐこと\n(例：ri-oubutsu)")))
+    (downcase (read-string "学部名を対応表に記載されている通り、アルファベットで入力: ")))
 
 (defun hcsm-question-setting()
   "return list `numbers-of-questions`. numbers-of-parts is equal to its length." ()
   (let (numbers-of-parts parts-consist-of-questions numbers-of-questions)
     ;;大問設定
-    (hcsm-set-string-var 'numbers-of-parts "大問数を入力" 'string-to-number)
+    (hcsm-set-string-var 'numbers-of-parts "大問数を入力: " 'string-to-number)
     (setq parts-consist-of-questions
-	  (split-string (read-string "小問集合問題である大問を入力\n半角数字、半角スペース区切り")))
+	  (split-string (read-string "小問集合問題である大問を入力\n複数の場合半角スペースで区切ること\n")))
     (setq parts-consist-of-questions ;リストの要素を文字から数字リテラルに変換
 	  (mapcar #'string-to-number parts-consist-of-questions))
     ;;小問設定
@@ -28,7 +28,7 @@
 	(progn 
 	  (push ;push (True:ask False:0) into numbers-of-questions
 	   (if (member (+ i 1) parts-consist-of-questions) 
-	       (string-to-number (read-string (format "大問%dの小問数を入力" (+ i 1)))) 0) 
+	       (string-to-number (read-string (format "大問%dの小問数を入力: " (+ i 1)))) 0) 
 	   numbers-of-questions)
 	  (setq i (+ i 1))))) ;let end
     (reverse numbers-of-questions)

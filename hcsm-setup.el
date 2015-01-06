@@ -10,10 +10,11 @@
     (hcsm-create-new-directory hcsm-TEX-Genkou-path)
 
     ;;hcsm-school-year
-    (hcsm-modify-settings 'hcsm-school-year (read-string "何年度?"))
+    (hcsm-modify-settings 'hcsm-school-year (read-string "年度を入力: "))
 
     ;;hcsm-template-path
-    (hcsm-modify-settings 'hcsm-template-path (read-directory-name "template-path:"));temp
+;    (hcsm-modify-settings 'hcsm-template-path (read-directory-name "template-path:"));temp
+    (message "セットアップ完了\nEmacsを再起動してください")
     );progn
   );defun
 
@@ -33,9 +34,9 @@
   "read TEX-Genkou folder bath."
   (let (correct-path-flag TEX-Genkou-path)
     (while (not correct-path-flag)
-      (setq TEX-Genkou-path (format "%sTEX-Genkou" (read-directory-name "TEX-Genkouの存在するパス(フォルダの位置)を入力\n例：C:\\work\\TEX-Genkou\\(年度)-Nyushi\\...なら\nC:/work/ :\n例：~/work/TEX-Genkou/(年度)-Nyushi/...なら\n~/work/ ")))
+      (setq TEX-Genkou-path (format "%sTEX-Genkou" (read-directory-name "TEX-Genkouの存在するパス(フォルダの位置)を入力\n例：C:/work/TEX-Genkou/(年度)-Nyushi/...ならC:/work/\n例：~/work/TEX-Genkou/(年度)-Nyushi/...なら~/work/\n")))
       (setq correct-path-flag
-	    (y-or-n-p (format "TEX-Genkouのパスは%sですか？" TEX-Genkou-path))))
-    TEX-Genkou-path ;return it
+	    (y-or-n-p (format "TEX-Genkouのパス(フォルダの位置)は%sですか？" TEX-Genkou-path))))
+    TEX-Genkou-path			;return it
     ))
 ;;code end
