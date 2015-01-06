@@ -4,7 +4,7 @@
 (require 'hcsm-folderinit-setting-funcs)
 
 (defun hcsm-folderinit ()
-  "Initialize folders."
+  "Initialize .tex folders."
   (interactive)
   (save-excursion
     ;;大学基本設定
@@ -25,6 +25,7 @@
 				hcsm-TEX-Genkou-path hcsm-school-year hcsm-school-year ritsu hcsm-school-year univ-name)))
     (defconst univ-college-folder-name (format "%s-%s-%s" hcsm-school-year univ-short-name college-name))
     (defconst college-folder-path (format "%s/%s" univ-folder-path univ-college-folder-name))
+
     ;;フォルダ名の問題番号部分を作成
     (defconst list-of-suffixes
       (hcsm-create-suffixes (length numbers-of-questions) numbers-of-questions))
@@ -35,17 +36,17 @@
   );defun
 
 (defun hcsm-create-tex()
-  "create tex folders."
+  "Create tex folders and files."
   (let (suffix)
     (dolist (suffix list-of-suffixes)
       (progn (hcsm-create-tex-folders suffix) (hcsm-create-tex-files suffix)))))
 
 (defun hcsm-create-tex-folders(suffix)
-  "manage all about creating directories for .tex files."
+  "Manage all about creating directories for .tex files."
   (make-directory (format "%s/%s-%s" college-folder-path univ-college-folder-name suffix) 'recursive))
 
 (defun hcsm-create-tex-files(suffix)
-  "manage all about creating .tex files."
+  "Manage all about creating .tex files."
   (let (format-list template-list)
     (cond 
      ;;about parts/questions
@@ -53,7 +54,7 @@
       ;;formats are common in all parts
       (setq format-list '("%s/%s-%s/%s-toi-%s.tex" "%s/%s-%s/%s-kai-%s.tex" "%s/%s-%s/%s-%s-kakunin.tex"))
       ;;templates are different
-      (setq template-list '("year-univ-toi-2.tex" "year-univ-kai-1-1.tex" "year-univ-2-kakunin.tex"))
+      (setq template-list '("year-univ-toi-2.tex" "year-univ-kai-2.tex" "year-univ-2-kakunin.tex"))
       (when (string-match "-" suffix)
 	(setq template-list '("year-univ-toi-1-1.tex" "year-univ-kai-1-2.tex" "year-univ-1-1-kakunin.tex"))
 	(when (string-match "-1" suffix) 
@@ -73,14 +74,14 @@
 
 ;;this sub-routine is for hcsm-copy-tex-files only.
 (defun hcsm-initialize-tex-files(format-list template-list suffix &optional suffix-flag)
-  "extract format-list / template-list. 
+  "Extract format-list / template-list. 
 suffix / suffix-flag are needed for hcsm-copy-tex-file."
   (if suffix-flag
       (let (i) (dotimes (i (length format-list)) (hcsm-initialize-tex-file (nth i format-list) (nth i template-list) suffix t)))
     (let (i) (dotimes (i (length format-list)) (hcsm-initialize-tex-file (nth i format-list) (nth i template-list) suffix)))))
 
 (defun hcsm-initialize-tex-file(tex-file-path-format template-name suffix &optional suffix-flag)
-  "(1)copy .tex template -> (2)replace its contents properly. 
+  "(1)Copy .tex template -> (2)Replace its contents properly. 
 suffix / suffix-flag are needed for hcsm-copy-tex-file."
   (hcsm-replace-in-tex-file 
    (if suffix-flag
@@ -89,8 +90,8 @@ suffix / suffix-flag are needed for hcsm-copy-tex-file."
    suffix))
 
 (defun hcsm-copy-tex-file(tex-file-path-format template-name suffix &optional suffix-flag)
-  "copy templates and save as proper name. 
-the function returns a path to the file being saved."
+  "Copy templates and save as proper name. 
+The function returns a path to the file being saved."
   (let (path-to-tex-file)
     (if suffix-flag  
 	;;t   : %s * 5, about parts
@@ -104,7 +105,8 @@ the function returns a path to the file being saved."
     path-to-tex-file)) ;return path
 
 (defun hcsm-replace-in-tex-file(path-to-tex-file suffix)
-  "replace bare .tex file sent from hcsm-copy-tex-file"
+  "Replace variables in template to proper informations.
+Such as univ-name, school-year, and so on.."
   (hcsm-open-to-kill 
    path-to-tex-file 
    (lambda () 
