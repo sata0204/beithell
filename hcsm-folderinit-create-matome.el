@@ -19,19 +19,19 @@
 	    ;;should be refactored;;
 	    ;;-;;;;;;;;;;;;;;;;;;;;;
 	    (add-to-list 'toi-text-lists 
-			 (format "\\\\input{../../../../../../TEX-Genkou/%s%s-%s/%s-toi-%s}" (file-name-directory (file-relative-name college-folder-path hcsm-TEX-Genkou-path)) 
-				 univ-college-folder-name (+ i 1) univ-college-folder-name (+ i 1)))
+			 (format "\\\\input{../../../../../../TEX-Genkou/%s%s%s-%s/%s-toi-%s}" (file-name-directory (file-relative-name college-folder-path hcsm-TEX-Genkou-path)) 
+				 univ-college-folder-name univ-college-folder-name (+ i 1) univ-college-folder-name (+ i 1)))
 	    (add-to-list 'kai-text-lists 
-			 (format "\\\\input{../../../../../../TEX-Genkou/%s%s-%s/%s-kai-%s}" (file-name-directory (file-relative-name college-folder-path hcsm-TEX-Genkou-path)) 
-				 univ-college-folder-name (+ i 1) univ-college-folder-name (+ i 1))))
+			 (format "\\\\input{../../../../../../TEX-Genkou/%s%s%s-%s/%s-kai-%s}" (file-name-directory (file-relative-name college-folder-path hcsm-TEX-Genkou-path)) 
+				 univ-college-folder-name univ-college-folder-name (+ i 1) univ-college-folder-name (+ i 1))))
 
 	;;false: questional parts
 	(add-to-list 'toi-text-lists "\\\\begin{reidai}")
 	(dotimes (j (nth i numbers-of-questions))
 	  (add-to-list 'toi-text-lists (format "\\\\begin{shomonr}
-\\\\input{../../../../../../TEX-Genkou/%s%s-%s-%s/%s-toi-%s-%s}
+\\\\input{../../../../../../TEX-Genkou/%s%s%s-%s-%s/%s-toi-%s-%s}
 \\\\end{shomonr}"
-					       (file-name-directory (file-relative-name college-folder-path hcsm-TEX-Genkou-path)) univ-college-folder-name (+ i 1) (+ j 1) 
+					       (file-name-directory (file-relative-name college-folder-path hcsm-TEX-Genkou-path)) univ-college-folder-name univ-college-folder-name (+ i 1) (+ j 1) 
 					       univ-college-folder-name (+ i 1) (+ j 1))))
 	(add-to-list 'toi-text-lists "\\\\end{reidai}")
 	;;questional parts end
@@ -40,8 +40,8 @@
       );dotimes i end
 
     ;;end folder
-    (add-to-list 'end-text-lists (format "\\\\input{../../../../../../TEX-Genkou/%s%s-end/%s-end}"
-					 (file-name-directory (file-relative-name college-folder-path hcsm-TEX-Genkou-path)) univ-college-folder-name univ-college-folder-name))
+    (add-to-list 'end-text-lists (format "\\\\input{../../../../../../TEX-Genkou/%s%s%s-end/%s-end}"
+					 (file-name-directory (file-relative-name college-folder-path hcsm-TEX-Genkou-path)) univ-college-folder-name univ-college-folder-name univ-college-folder-name))
     
     (hcsm-replace "%toi%" (mapconcat 'identity (reverse toi-text-lists) "
 "))
