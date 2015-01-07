@@ -2,6 +2,8 @@
 (provide 'hcsm-folderinit)
 (require 'hcsm-basicfuncs)
 (require 'hcsm-folderinit-setting-funcs)
+(require 'hcsm-folderinit-create-matome)
+
 
 (defun hcsm-folderinit ()
   "Initialize .tex folders."
@@ -9,12 +11,13 @@
   (save-excursion
     ;;大学基本設定
     (defconst ritsu (hcsm-ask-ritsu))
-    (defconst univ-name (capitalize (read-string "大学名をローマ字12文字以内で入力")))
-    (defconst univ-short-name (upcase (read-string "大学略称をローマ字で入力")))
-    (defconst univ-japanese-name (read-string "大学名を日本語で入力")) ;temp
+    (defconst univ-name (capitalize (read-string "大学名を対応表に記載されている通りの英語で入力: ")))
+    (defconst univ-short-name (upcase (read-string "大学略称を対応表に記載されている通り、大文字アルファベットで入力: ")))
+    (defconst univ-japanese-name (read-string "大学名を対応表に記載されている通りの日本語で入力: ")) ;temp
+    (defconst univ-source-name (read-string "出典に記載する大学名を対応表に記載されている通りの日本語で入力: "))
     ;;学部設定
     (defconst college-name (hcsm-ask-collage))
-    (defconst college-japanese-name (read-string "学部名を日本語で入力")) ;temp
+    (defconst college-japanese-name (read-string "学部名を対応表に記載されている通りの日本語で入力: ")) ;temp
     ;;大問・小問設定
     (defconst numbers-of-questions (hcsm-question-setting))
 
@@ -24,7 +27,8 @@
       (expand-file-name (format "%s/%s-Nyushi/%s-%s/%s-%s" 
 				hcsm-TEX-Genkou-path hcsm-school-year hcsm-school-year ritsu hcsm-school-year univ-name)))
     (defconst univ-college-folder-name (format "%s-%s-%s" hcsm-school-year univ-short-name college-name))
-    (defconst college-folder-path (format "%s/%s" univ-folder-path univ-college-folder-name))
+    (defconst college-folder-path (format "%s/%s" univ-folder-path univ-college-folder-name)
+)
 
     ;;フォルダ名の問題番号部分を作成
     (defconst list-of-suffixes
@@ -33,6 +37,8 @@
     ;;フォルダ実作成
     (hcsm-create-tex)
     ) ;save-excursion
+  
+  (message "ファイルの作成完了")
   );defun
 
 (defun hcsm-create-tex()
@@ -111,20 +117,16 @@ Such as univ-name, school-year, and so on.."
    path-to-tex-file 
    (lambda () 
      (progn
-       (goto-char (point-min))
-       (perform-replace "UVS" univ-short-name nil nil nil)
-       (goto-char (point-min))
-       (perform-replace "university" univ-name nil nil nil)
-       (goto-char (point-min))
-       (perform-replace "daigaku" univ-japanese-name nil nil nil)
-       (goto-char (point-min))
-       (perform-replace "department" college-name nil nil nil)
-       (goto-char (point-min))
-       (perform-replace "gakubu" college-japanese-name nil nil nil)
+(hcsm-replace "UVS" univ-short-name) 
+       (hcsm-replace "university" univ-name) 
+       (hcsm-replace "daigakumei" univ-japanese-name) 
+       (hcsm-replace "department" college-name) 
+       (hcsm-replace "gakubu" college-japanese-name) 
+       (hcsm-replace "year" hcsm-school-year) 
+       (hcsm-replace "source" univ-source-name)
        (cond 
 	((string-match "[0-9]" suffix)
-	 (goto-char (point-min))
-	 (perform-replace "daimon-minus-one" (number-to-string (- (string-to-number (match-string 0 suffix)) 1)) nil nil nil)
-	 (goto-char (point-min))
-	 (perform-replace "mon-bango" suffix nil nil nil)))))))
-
+       	 (hcsm-replace "daimon-minus-one" (number-to-string (- (string-to-number (match-string 0 suffix)) 1)))
+	 (hcsm-replace "mon-bango" suffix))
+	((string-match "matome" suffix)
+	 (hcsm-create-matome)))))))
