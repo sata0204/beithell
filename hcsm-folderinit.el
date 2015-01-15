@@ -11,7 +11,7 @@
   (save-excursion
     ;;大学基本設定
     (defconst ritsu (hcsm-ask-ritsu))
-    (defconst univ-name (capitalize (read-string "大学名を対応表に記載されている通りの英語で入力: ")))
+    (defconst univ-name (read-string "大学名を対応表に記載されている通りの英語で入力: "))
     (defconst univ-short-name (upcase (read-string "大学略称を対応表に記載されている通り、大文字アルファベットで入力: ")))
     (defconst univ-japanese-name (read-string "大学名を対応表に記載されている通りの日本語で入力: ")) ;temp
     (defconst univ-source-name (read-string "出典に記載する大学名を対応表に記載されている通りの日本語で入力: "))
