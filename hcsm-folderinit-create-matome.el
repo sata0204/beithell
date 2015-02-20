@@ -19,11 +19,11 @@
 	    ;;should be refactored;;
 	    ;;-;;;;;;;;;;;;;;;;;;;;;
 	    (add-to-list 'toi-text-lists 
-			 (format "\\\\input{../../../../../../TEX-Genkou/%s%s/%s-%s/%s-toi-%s}" 
+			 (format "\\\\input{../../../../../../TEX-Genkou/%s%s/%s-%s/%s-toi-%s.tex}" 
 				 (file-name-directory (file-relative-name college-folder-path hcsm-TEX-Genkou-path)) 
 				 univ-college-folder-name univ-college-folder-name (+ i 1) univ-college-folder-name (+ i 1)))
 	    (add-to-list 'kai-text-lists 
-			 (format "\\\\input{../../../../../../TEX-Genkou/%s%s/%s-%s/%s-kai-%s}" 
+			 (format "\\\\input{../../../../../../TEX-Genkou/%s%s/%s-%s/%s-kai-%s.tex}" 
 				 (file-name-directory (file-relative-name college-folder-path hcsm-TEX-Genkou-path)) 
 				 univ-college-folder-name univ-college-folder-name (+ i 1) univ-college-folder-name (+ i 1))))
 
@@ -31,12 +31,12 @@
 	(add-to-list 'toi-text-lists "\\\\begin{reidai}")
 	(dotimes (j (nth i numbers-of-questions))
 	  (add-to-list 'toi-text-lists (format "\\\\begin{shomonr}
-\\\\input{../../../../../../TEX-Genkou/%s%s/%s-%s-%s/%s-toi-%s-%s}
+\\\\input{../../../../../../TEX-Genkou/%s%s/%s-%s-%s/%s-toi-%s-%s.tex}
 \\\\end{shomonr}"
 					       (file-name-directory (file-relative-name college-folder-path hcsm-TEX-Genkou-path)) 
 					       univ-college-folder-name univ-college-folder-name (+ i 1) (+ j 1) 
 					       univ-college-folder-name (+ i 1) (+ j 1)))
-	  (add-to-list 'kai-text-lists (format "\\\\input{../../../../../../TEX-Genkou/%s%s/%s-%s-%s/%s-kai-%s-%s}"
+	  (add-to-list 'kai-text-lists (format "\\\\input{../../../../../../TEX-Genkou/%s%s/%s-%s-%s/%s-kai-%s-%s.tex}"
 					       (file-name-directory (file-relative-name college-folder-path hcsm-TEX-Genkou-path)) 
 					       univ-college-folder-name univ-college-folder-name (+ i 1) (+ j 1) 
 					       univ-college-folder-name (+ i 1) (+ j 1))))
@@ -47,7 +47,7 @@
       );dotimes i end
 
     ;;end folder
-    (add-to-list 'end-text-lists (format "\\\\input{../../../../../../TEX-Genkou/%s%s/%s-end/%s-end}"
+    (add-to-list 'end-text-lists (format "\\\\input{../../../../../../TEX-Genkou/%s%s/%s-end/%s-end.tex}"
 					 (file-name-directory 
 					  (file-relative-name college-folder-path hcsm-TEX-Genkou-path)) 
 					 univ-college-folder-name univ-college-folder-name univ-college-folder-name))

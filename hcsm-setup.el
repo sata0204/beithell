@@ -1,4 +1,4 @@
-;;; -*- coding: utf-8; lexical-binding: t -*-
+﻿;;; -*- coding: utf-8; lexical-binding: t -*-
 (provide 'hcsm-setup)
 (require 'hcsm-basicfuncs)
 (defun hcsm-setup()
@@ -10,11 +10,11 @@
     (hcsm-create-new-directory hcsm-TEX-Genkou-path)
 
     ;;hcsm-school-year
-    (hcsm-modify-settings 'hcsm-school-year (read-string "年度を入力: "))
+    (hcsm-modify-settings 'hcsm-school-year (read-string "年度を入力(2015年度なら15): "))
 
     ;;hcsm-template-path
 ;    (hcsm-modify-settings 'hcsm-template-path (read-directory-name "template-path:"));temp
-    (message "セットアップ完了\nEmacsを再起動してください")
+    (message "セットアップ完了")
     );progn
   );defun
 
